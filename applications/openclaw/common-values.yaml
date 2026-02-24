@@ -65,6 +65,7 @@ common:
           templates:
             DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"
             OPENCLAW_GATEWAY_TOKEN: "{{ .Secrets.OPENCLAW_GATEWAY_TOKEN }}"
+            OPENCLAW_DB_PASSWORD: "{{ .Secrets.OPENCLAW_DB_PASSWORD }}"
       rolloutRestartTargets:
         - kind: Deployment
           name: openclaw
