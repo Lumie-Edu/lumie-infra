@@ -8,6 +8,7 @@ data:
     {
       "gateway": {
         "bind": "lan",
+        "trustedProxies": ["10.42.0.0/16"],
         "controlUi": {
           "dangerouslyAllowHostHeaderOriginFallback": true
         }
