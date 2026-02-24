@@ -35,4 +35,5 @@ resources:
   - lumie/grading-svc/argocd.yaml
   - lumie/admin-svc/argocd.yaml
   - lumie/attendance-svc/argocd.yaml
+  - lumie/ai-svc/argocd.yaml
   - lumie/lumie-frontend/argocd.yaml
