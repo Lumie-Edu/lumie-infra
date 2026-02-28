@@ -105,6 +105,22 @@ spec:
                 name: grading-svc
                 port:
                   number: 8000
+          # Admin service
+          - path: /api/admin
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-svc
+                port:
+                  number: 8080
+          # Attendance service
+          - path: /api/attendance
+            pathType: Prefix
+            backend:
+              service:
+                name: attendance-svc
+                port:
+                  number: 8080
           # AI service
           - path: /api/ai
             pathType: Prefix
