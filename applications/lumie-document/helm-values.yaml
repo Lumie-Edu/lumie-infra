@@ -5,7 +5,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: web-apps/lumie-document
-    tag: "6179e5a6"
+    tag: "8936d5b0"
     pullPolicy: Always
   replicaCount: 1
   containerPort: 80 # nginx
