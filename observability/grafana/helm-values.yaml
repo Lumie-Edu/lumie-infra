@@ -5,7 +5,7 @@
 image:
   registry: zot.lumie-infra.com
   repository: grafana/grafana
-  tag: "12.3.1"
+  tag: "12.3.2"
 
 fullnameOverride: grafana
 

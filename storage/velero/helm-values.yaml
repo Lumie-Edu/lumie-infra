@@ -7,7 +7,7 @@ upgradeCRDs: false
 # Image configuration (mirrored via Zot - internal cluster address)
 image:
   repository: zot.lumie-infra.com/velero/velero
-  tag: v1.17.1
+  tag: v1.17.2
   pullPolicy: IfNotPresent
 
 # Replica count (Velero does not support multiple replicas)
@@ -25,7 +25,7 @@ resources:
 initContainers:
   # AWS plugin for S3-compatible storage (Minio) - mirrored via Zot
   - name: velero-plugin-for-aws
-    image: zot.lumie-infra.com/velero/velero-plugin-for-aws:v1.13.1
+    image: zot.lumie-infra.com/velero/velero-plugin-for-aws:v1.14.0
     volumeMounts:
       - mountPath: /target
         name: plugins

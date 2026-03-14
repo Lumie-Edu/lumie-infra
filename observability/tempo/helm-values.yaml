@@ -19,7 +19,7 @@ replicas: 1
 tempo:
   # Image configuration - use zot registry
   repository: zot.lumie-infra.com/grafana/tempo
-  tag: "2.6.1"
+  tag: "2.10.0"
 
   # Resource settings (no CPU limit for stability)
   resources:

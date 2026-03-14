@@ -37,7 +37,7 @@ spec:
           echo "CNPG cluster is ready!"
       containers:
       - name: init-db
-        image: zot.lumie-infra.com/cloudnative-pg/postgresql:18.1
+        image: zot.lumie-infra.com/cloudnative-pg/postgresql:18.3
         securityContext:
           runAsNonRoot: true
           allowPrivilegeEscalation: false

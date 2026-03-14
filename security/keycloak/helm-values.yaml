@@ -4,7 +4,7 @@
 # Image - Zot registry (quay:keycloak/** mapped)
 image:
   repository: zot.lumie-infra.com/keycloak/keycloak
-  tag: "26.5.1"
+  tag: "26.5.4"
 
 # Start Keycloak in production mode
 command:

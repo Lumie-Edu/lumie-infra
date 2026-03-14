@@ -4,7 +4,7 @@
 # Operator image - Zot registry
 image:
   repository: zot.lumie-infra.com/cloudnative-pg/cloudnative-pg
-  tag: "1.25.1"
+  tag: "1.28.1"
   pullPolicy: IfNotPresent
 
 # Replica count for operator

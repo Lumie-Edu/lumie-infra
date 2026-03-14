@@ -2,7 +2,7 @@ fullnameOverride: code-server
 
 image:
   repository: zot.lumie-infra.com/codercom/code-server
-  tag: 4.108.2
+  tag: 4.111.0
   pullPolicy: Always
 
 # Persistence configuration for workspace data

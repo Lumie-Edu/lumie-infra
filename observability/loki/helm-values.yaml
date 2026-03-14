@@ -15,7 +15,7 @@ loki:
   image:
     registry: zot.lumie-infra.com
     repository: grafana/loki
-    tag: "3.3.2"
+    tag: "3.6.5"
 
   # Use local filesystem storage (emptyDir)
   storage:
