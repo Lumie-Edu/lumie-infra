@@ -86,9 +86,6 @@ serviceMonitor:
     - name: jaejadle
       url: https://disciples-church.com
       module: http_2xx
-    - name: joossam-omr
-      url: https://joossameng.kro.kr
-      module: http_2xx
 
 prometheusRule:
   enabled: true
