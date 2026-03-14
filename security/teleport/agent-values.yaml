@@ -151,11 +151,11 @@ apps:
       teleport.icon: kube
 
   # Documentation
-  - name: docusaurus
-    uri: http://docusaurus.docusaurus.svc.cluster.local:80
+  - name: lumie-docs
+    uri: http://lumie-docs.lumie-docs.svc.cluster.local:80
     rewrite:
       redirect:
-        - "docusaurus.docusaurus.svc.cluster.local"
+        - "lumie-docs.lumie-docs.svc.cluster.local"
     labels:
       env: prod
       category: applications

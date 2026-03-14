@@ -1,10 +1,10 @@
-# Docusaurus Web App Helm Values
+# Lumie Docs Web App Helm Values
 
 common:
-  name: docusaurus
+  name: lumie-docs
   image:
     registry: zot.lumie-infra.com
-    repository: web-apps/docusaurus
+    repository: web-apps/lumie-docs
     tag: "34117228"
     pullPolicy: Always
   replicaCount: 1
