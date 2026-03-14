@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Mayne0213/lumie-infra.git
+    repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
     path: applications/lumie-document
   destination:

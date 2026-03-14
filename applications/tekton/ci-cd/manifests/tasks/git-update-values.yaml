@@ -9,7 +9,7 @@ spec:
     - name: GIT_REPO_URL
       description: Git repository URL to update (lumie-infra)
       type: string
-      default: "https://github.com/Mayne0213/lumie-infra.git"
+      default: "https://github.com/Lumie-Edu/lumie-infra.git"
     - name: GIT_BRANCH
       description: Git branch to update
       type: string

@@ -14,14 +14,14 @@ spec:
     helm:
       valueFiles:
       - $values/platform/cert-manager/helm-values.yaml
-  - repoURL: https://github.com/Mayne0213/lumie-infra.git
+  - repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
     ref: values
     path: charts/common
     helm:
       valueFiles:
       - $values/platform/cert-manager/common-values.yaml
-  - repoURL: https://github.com/Mayne0213/lumie-infra.git
+  - repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
     path: platform/cert-manager/manifests
   destination:

@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Mayne0213/lumie-infra.git
+    repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
     path: security/teleport
   destination:
@@ -53,7 +53,7 @@ spec:
     helm:
       valueFiles:
       - $values/security/teleport/agent-values.yaml
-  - repoURL: https://github.com/Mayne0213/lumie-infra.git
+  - repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
     ref: values
   destination:

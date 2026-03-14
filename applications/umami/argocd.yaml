@@ -14,7 +14,7 @@ spec:
     helm:
       valueFiles:
       - $values/applications/umami/helm-values.yaml
-  - repoURL: https://github.com/Mayne0213/lumie-infra.git
+  - repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
     ref: values
     path: charts/common
