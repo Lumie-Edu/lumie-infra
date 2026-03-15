@@ -14,7 +14,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: applications/attendance-svc
-    tag: "633f68f8"
+    tag: "4e571dcc"
     pullPolicy: IfNotPresent
 
   # Multiple container ports
