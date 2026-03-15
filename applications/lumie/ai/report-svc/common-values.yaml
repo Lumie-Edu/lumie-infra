@@ -15,7 +15,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: applications/report-svc
-    tag: "bdd2fbfd"
+    tag: "4e102dbe"
     pullPolicy: Always
 
   # Container ports
