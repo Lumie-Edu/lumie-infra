@@ -8,7 +8,7 @@ resources:
   # ArgoCD self-management (installed by Ansible, managed by GitOps)
   - argocd/argocd.yaml
 
-  - lumie-document/argocd.yaml
+  - lumie/document/argocd.yaml
   - code-server/argocd.yaml
   - umami/argocd.yaml
   - headlamp/argocd.yaml
@@ -22,17 +22,23 @@ resources:
 
   # LUMIE Platform
   - lumie/argocd.yaml
-  - lumie-dev/argocd.yaml
-  - lumie/tenant-svc/argocd.yaml
-  - lumie/auth-svc/argocd.yaml
-  - lumie/billing-svc/argocd.yaml
-  - lumie/academy-svc/argocd.yaml
-  - lumie/exam-svc/argocd.yaml
-  - lumie/content-svc/argocd.yaml
-  - lumie/file-svc/argocd.yaml
-  - lumie/grading-svc/argocd.yaml
-  - lumie/admin-svc/argocd.yaml
-  - lumie/attendance-svc/argocd.yaml
-  - lumie/ai-svc/argocd.yaml
-  - lumie/lumie-frontend/argocd.yaml
-  - lumie/analysis-svc/argocd.yaml
+  - lumie/develop/argocd.yaml
+
+  # LUMIE Backend
+  - lumie/backend/tenant-svc/argocd.yaml
+  - lumie/backend/auth-svc/argocd.yaml
+  - lumie/backend/billing-svc/argocd.yaml
+  - lumie/backend/academy-svc/argocd.yaml
+  - lumie/backend/exam-svc/argocd.yaml
+  - lumie/backend/content-svc/argocd.yaml
+  - lumie/backend/file-svc/argocd.yaml
+  - lumie/backend/admin-svc/argocd.yaml
+  - lumie/backend/attendance-svc/argocd.yaml
+
+  # LUMIE Frontend
+  - lumie/frontend/argocd.yaml
+
+  # LUMIE AI
+  - lumie/ai/ai-svc/argocd.yaml
+  - lumie/ai/analysis-svc/argocd.yaml
+  - lumie/ai/grading-svc/argocd.yaml
