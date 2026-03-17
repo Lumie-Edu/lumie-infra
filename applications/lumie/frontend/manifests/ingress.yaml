@@ -10,21 +10,10 @@ spec:
   ingressClassName: kong
   tls:
     - hosts:
-        - lumie0213.kro.kr
-        - www.lumie0213.kro.kr
+        - lumie.lumie-infra.com
       secretName: lumie-frontend-tls
   rules:
-    - host: lumie0213.kro.kr
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: lumie-frontend
-                port:
-                  number: 3000
-    - host: www.lumie0213.kro.kr
+    - host: lumie.lumie-infra.com
       http:
         paths:
           - path: /

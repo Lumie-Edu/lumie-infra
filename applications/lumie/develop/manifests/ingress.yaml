@@ -13,10 +13,10 @@ spec:
   ingressClassName: kong
   tls:
     - hosts:
-        - dev.lumie0213.kro.kr
+        - dev.lumie.lumie-infra.com
       secretName: lumie-dev-tls
   rules:
-    - host: dev.lumie0213.kro.kr
+    - host: dev.lumie.lumie-infra.com
       http:
         paths:
           # Auth service (public endpoints handled by backend security config)
@@ -43,10 +43,10 @@ spec:
   ingressClassName: kong
   tls:
     - hosts:
-        - dev.lumie0213.kro.kr
+        - dev.lumie.lumie-infra.com
       secretName: lumie-dev-tls
   rules:
-    - host: dev.lumie0213.kro.kr
+    - host: dev.lumie.lumie-infra.com
       http:
         paths:
           # Tenant service
