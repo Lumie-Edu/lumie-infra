@@ -9,10 +9,10 @@ spec:
   ingressClassName: kong
   tls:
     - hosts:
-        - tekton0213.kro.kr
-      secretName: tekton-triggers-tls
+        - webhook.lumie-infra.com
+      secretName: webhook-tekton-tls
   rules:
-    - host: tekton0213.kro.kr
+    - host: webhook.lumie-infra.com
       http:
         paths:
           - path: /hooks

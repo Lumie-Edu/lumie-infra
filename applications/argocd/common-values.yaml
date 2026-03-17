@@ -23,11 +23,11 @@ common:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: argocd0213.kro.kr
+        - host: webhook.lumie-infra.com
           paths:
             - path: /api/webhook
               pathType: Prefix
       tls:
-        - secretName: argocd-server-tls
+        - secretName: webhook-argocd-tls
           hosts:
-            - argocd0213.kro.kr
+            - webhook.lumie-infra.com
