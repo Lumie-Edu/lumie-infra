@@ -145,7 +145,7 @@ common:
       konghq.com/strip-path: "true"
       konghq.com/plugins: lumie-cors,lumie-jwt,lumie-jwt-claims
     hosts:
-      - host: lumie.lumie-infra.com
+      - host: lumie0213.kro.kr
         paths:
           - path: /api/exam
             pathType: Prefix

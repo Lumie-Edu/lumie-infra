@@ -31,8 +31,8 @@ metadata:
     global: "false"
 config:
   origins:
-    - "https://lumie.lumie-infra.com"
-    - "https://dev.lumie.lumie-infra.com"
+    - "https://lumie0213.kro.kr"
+    - "https://dev.lumie0213.kro.kr"
     - "http://localhost:3000"
   methods:
     - GET
