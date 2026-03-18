@@ -1,5 +1,5 @@
 # Analysis Service Helm Values
-# AI 모의고사 분석 서비스 (Python FastAPI + DeepSeek)
+# AI 모의고사 분석 서비스 (Python FastAPI + GPT-4o-mini)
 
 common:
   name: analysis-svc
@@ -33,15 +33,15 @@ common:
       value: "0.0.0.0"
     - name: PORT
       value: "8000"
-    - name: DEEPSEEK_MODEL
+    - name: LLM_MODEL
       value: "deepseek-chat"
-    - name: DEEPSEEK_BASE_URL
+    - name: LLM_BASE_URL
       value: "https://api.deepseek.com/v1"
   # Secret env from Vault
   envFrom:
     - secretRef:
         name: analysis-svc-secrets
-  # Vault Static Secret for DeepSeek API Key
+  # Vault Static Secret for LLM API Key
   vaultStaticSecrets:
     - name: analysis-svc-vss
       path: applications/ai-svc
@@ -49,7 +49,7 @@ common:
         name: analysis-svc-secrets
         transformation:
           templates:
-            DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"
+            LLM_API_KEY: "{{ .Secrets.OPENAI_API_KEY }}"
   # Resource settings
   resources:
     requests:
