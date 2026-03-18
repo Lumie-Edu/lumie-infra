@@ -71,7 +71,7 @@ resource "oci_core_instance" "nodes_0214" {
   }
 
   lifecycle {
-    ignore_changes = [metadata]
+    ignore_changes = [metadata, source_details]
   }
 }
 
