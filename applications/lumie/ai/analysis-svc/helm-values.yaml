@@ -23,7 +23,7 @@ common:
     enabled: true
     className: kong
     hosts:
-      - host: lumie0213.kro.kr
+      - host: lumie-edu.com
         paths:
           - path: /api/analysis
             pathType: Prefix

@@ -100,7 +100,7 @@ common:
       konghq.com/write-timeout: "300000"     # 5분
       konghq.com/connect-timeout: "60000"    # 1분
     hosts:
-      - host: lumie0213.kro.kr
+      - host: lumie-edu.com
         paths:
           - path: /api/grading
             pathType: Prefix

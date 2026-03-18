@@ -1,4 +1,4 @@
-# TLS Certificate for dev.lumie0213.kro.kr
+# TLS Certificate for dev.lumie-edu.com
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - dev.lumie0213.kro.kr
+    - dev.lumie-edu.com

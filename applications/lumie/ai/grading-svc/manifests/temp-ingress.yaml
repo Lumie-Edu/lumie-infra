@@ -12,7 +12,7 @@ metadata:
 spec:
   ingressClassName: kong
   rules:
-    - host: lumie0213.kro.kr
+    - host: lumie-edu.com
       http:
         paths:
           - path: /api/temp/grading
