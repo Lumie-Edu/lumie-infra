@@ -12,3 +12,4 @@ helmCharts:
 
 resources:
   - manifests/ingress.yaml
+  - manifests/www-redirect.yaml

@@ -24,13 +24,3 @@ spec:
                 name: lumie-frontend
                 port:
                   number: 3000
-    - host: www.lumie-edu.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: lumie-frontend
-                port:
-                  number: 3000

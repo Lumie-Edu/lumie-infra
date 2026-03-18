@@ -1,0 +1,43 @@
+# KongPlugin: www → non-www 301 redirect
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: www-redirect
+  namespace: lumie-frontend
+plugin: pre-function
+config:
+  access:
+    - |
+      local host = kong.request.get_host()
+      if host == "www.lumie-edu.com" then
+        local uri = kong.request.get_path_with_query()
+        return kong.response.exit(301, nil, {
+          ["Location"] = "https://lumie-edu.com" .. uri
+        })
+      end
+---
+# Ingress for www.lumie-edu.com (redirect only)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lumie-frontend-www-redirect
+  namespace: lumie-frontend
+  annotations:
+    konghq.com/plugins: www-redirect
+spec:
+  ingressClassName: kong
+  tls:
+    - hosts:
+        - www.lumie-edu.com
+      secretName: lumie-frontend-tls
+  rules:
+    - host: www.lumie-edu.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lumie-frontend
+                port:
+                  number: 3000
