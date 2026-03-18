@@ -1,5 +1,5 @@
 # Analysis Service Helm Values
-# AI 모의고사 분석 서비스 (Python FastAPI + Anthropic Claude)
+# AI 모의고사 분석 서비스 (Python FastAPI + DeepSeek)
 
 common:
   name: analysis-svc
@@ -23,7 +23,7 @@ common:
     enabled: true
     className: kong
     hosts:
-      - host: joossameng.kro.kr
+      - host: lumie0213.kro.kr
         paths:
           - path: /api/analysis
             pathType: Prefix
@@ -33,21 +33,23 @@ common:
       value: "0.0.0.0"
     - name: PORT
       value: "8000"
-    - name: ANTHROPIC_MODEL
-      value: "claude-sonnet-4-20250514"
+    - name: DEEPSEEK_MODEL
+      value: "deepseek-chat"
+    - name: DEEPSEEK_BASE_URL
+      value: "https://api.deepseek.com/v1"
   # Secret env from Vault
   envFrom:
     - secretRef:
         name: analysis-svc-secrets
-  # Vault Static Secret for ANTHROPIC_API_KEY
+  # Vault Static Secret for DeepSeek API Key
   vaultStaticSecrets:
     - name: analysis-svc-vss
-      path: applications/mas
+      path: applications/ai-svc
       destination:
         name: analysis-svc-secrets
         transformation:
           templates:
-            ANTHROPIC_API_KEY: "{{ .Secrets.ANTHROPIC_API_KEY }}"
+            DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"
   # Resource settings
   resources:
     requests:
