@@ -1,0 +1,91 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: grafana-dashboard-argocd
+  namespace: grafana
+  files:
+  - argocd.json
+
+- name: grafana-dashboard-blackbox-exporter
+  namespace: grafana
+  files:
+  - blackbox-exporter-http-prober.json
+
+- name: grafana-dashboard-certmanager
+  namespace: grafana
+  files:
+  - certmanager.json
+
+- name: grafana-dashboard-cloudnativepg
+  namespace: grafana
+  files:
+  - cloudnativepg.json
+
+- name: grafana-dashboard-coredns
+  namespace: grafana
+  files:
+  - coredns.json
+
+- name: grafana-dashboard-falco
+  namespace: grafana
+  files:
+  - falco.json
+
+- name: grafana-dashboard-krci-tekton
+  namespace: grafana
+  files:
+  - krci-tekton-overview.json
+
+- name: grafana-dashboard-logs
+  namespace: grafana
+  files:
+  - logs.json
+
+- name: grafana-dashboard-loki
+  namespace: grafana
+  files:
+  - loki.json
+
+- name: grafana-dashboard-main
+  namespace: grafana
+  files:
+  - main.json
+
+- name: grafana-dashboard-minio
+  namespace: grafana
+  files:
+  - minio.json
+
+- name: grafana-dashboard-namespaces
+  namespace: grafana
+  files:
+  - namespaces.json
+
+- name: grafana-dashboard-nodeexporter
+  namespace: grafana
+  files:
+  - nodeexporter.json
+
+- name: grafana-dashboard-opentelemetry-collector
+  namespace: grafana
+  files:
+  - opentelemetry-collector.json
+
+- name: grafana-dashboard-pods
+  namespace: grafana
+  files:
+  - pods.json
+
+- name: grafana-dashboard-traefik
+  namespace: grafana
+  files:
+  - traefik.json
+
+- name: grafana-dashboard-trivy
+  namespace: grafana
+  files:
+  - trivy.json
