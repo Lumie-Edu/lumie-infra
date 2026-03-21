@@ -208,6 +208,15 @@ apps:
       category: platform
       teleport.icon: kube
 
+  # Local Dev Environment
+  - name: tilt
+    uri: http://10.0.0.241:10350
+    public_addr: tilt.lumie-infra.com
+    labels:
+      env: prod
+      category: applications
+      teleport.icon: kube
+
   # AI Assistant (OpenClaw)
   - name: openclaw
     uri: http://openclaw.openclaw.svc.cluster.local:18789
