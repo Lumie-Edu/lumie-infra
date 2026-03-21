@@ -14,6 +14,9 @@ resources:
   - headlamp/argocd.yaml
   - openclaw/argocd.yaml
 
+  # OLma (임시 - 제거 시 이 줄만 삭제)
+  - olma/argocd.yaml
+
   # Tekton CI/CD
   - tekton/pipeline/argocd.yaml
   - tekton/triggers/argocd.yaml

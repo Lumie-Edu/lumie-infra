@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: olma-frontend-ingress
+  namespace: olma
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: kong
+  tls:
+    - hosts:
+        - olma.lumie-infra.com
+      secretName: olma-tls
+  rules:
+    - host: olma.lumie-infra.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: olma-frontend
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: olma-backend-ingress
+  namespace: olma
+  annotations:
+    konghq.com/strip-path: "true"
+spec:
+  ingressClassName: kong
+  tls:
+    - hosts:
+        - olma.lumie-infra.com
+      secretName: olma-tls
+  rules:
+    - host: olma.lumie-infra.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: olma-backend
+                port:
+                  number: 8080
