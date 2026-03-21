@@ -39,7 +39,7 @@ common:
     - name: SPRING_PROFILES_ACTIVE
       value: "prod"
     - name: DB_HOST
-      value: "olma-db-rw.olma.svc"
+      value: "olma-db-db-rw.olma.svc"
     - name: DB_PORT
       value: "5432"
     - name: DB_NAME
@@ -47,12 +47,12 @@ common:
     - name: DB_USERNAME
       valueFrom:
         secretKeyRef:
-          name: olma-db-app
+          name: olma-db-db-app
           key: username
     - name: DB_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: olma-db-app
+          name: olma-db-db-app
           key: password
 
   resources:
