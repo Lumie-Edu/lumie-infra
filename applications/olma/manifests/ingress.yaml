@@ -4,18 +4,14 @@ metadata:
   name: olma-frontend-ingress
   namespace: olma
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    konghq.com/strip-path: "true"
 spec:
   ingressClassName: kong
-  tls:
-    - hosts:
-        - olma.lumie-infra.com
-      secretName: olma-tls
   rules:
-    - host: olma.lumie-infra.com
+    - host: webhook.lumie-infra.com
       http:
         paths:
-          - path: /
+          - path: /olma
             pathType: Prefix
             backend:
               service:
@@ -32,15 +28,11 @@ metadata:
     konghq.com/strip-path: "true"
 spec:
   ingressClassName: kong
-  tls:
-    - hosts:
-        - olma.lumie-infra.com
-      secretName: olma-tls
   rules:
-    - host: olma.lumie-infra.com
+    - host: webhook.lumie-infra.com
       http:
         paths:
-          - path: /api
+          - path: /olma/api
             pathType: Prefix
             backend:
               service:
