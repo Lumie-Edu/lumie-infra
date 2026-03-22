@@ -40,7 +40,9 @@ RUN ARCH=$(dpkg --print-architecture) \
     && chmod +x /usr/local/bin/kubectl
 
 # Tilt
-RUN curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash
+RUN ARCH=$(dpkg --print-architecture) \
+    && TILT_VERSION=$(curl -fsSL https://api.github.com/repos/tilt-dev/tilt/releases/latest | jq -r '.tag_name') \
+    && curl -fsSL "https://github.com/tilt-dev/tilt/releases/download/${TILT_VERSION}/tilt.${TILT_VERSION#v}.linux.${ARCH}.tar.gz" | tar -xz -C /usr/local/bin tilt
 
 # Claude Code CLI
 RUN npm install -g @anthropic-ai/claude-code
