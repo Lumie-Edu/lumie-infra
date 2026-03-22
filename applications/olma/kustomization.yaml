@@ -13,4 +13,6 @@ helmCharts:
 resources:
   - manifests/frontend-deployment.yaml
   - manifests/frontend-service.yaml
+  - manifests/docs-deployment.yaml
+  - manifests/docs-service.yaml
   - manifests/ingress.yaml
