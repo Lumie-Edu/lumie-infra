@@ -119,4 +119,4 @@ svcaccts: []
 
 # ILM lifecycle rule: auto-delete tmp OMR images after 24 hours
 customCommands:
-  - command: mc ilm rule add lumie/lumie-files --prefix "omr/tmp/" --expire-days 1
+  - command: ilm rule add lumie/lumie-files --prefix "omr/tmp/" --expire-days 1
