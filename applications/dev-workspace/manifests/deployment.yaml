@@ -39,6 +39,10 @@ spec:
       - name: dev
         image: zot.lumie-infra.com/dev/dev-workspace:latest
         command: ["sleep", "infinity"]
+        ports:
+        - name: tilt-ui
+          containerPort: 10350
+          protocol: TCP
         env:
         - name: DOCKER_HOST
           value: "tcp://localhost:2375"
