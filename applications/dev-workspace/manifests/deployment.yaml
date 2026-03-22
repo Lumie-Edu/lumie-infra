@@ -23,7 +23,7 @@ spec:
       initContainers:
       - name: fix-permissions
         image: zot.lumie-infra.com/library/docker:dind
-        command: ["sh", "-c", "chown -R 1000:1000 /home/ubuntu"]
+        command: ["sh", "-c", "chown -R 1000:1000 /home/ubuntu && chmod 700 /home/ubuntu/.ssh 2>/dev/null && chmod 600 /home/ubuntu/.ssh/id_ed25519 /home/ubuntu/.ssh/config 2>/dev/null || true"]
         volumeMounts:
         - name: data
           mountPath: /home/ubuntu
