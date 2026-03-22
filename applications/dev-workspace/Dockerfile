@@ -47,9 +47,10 @@ RUN ARCH=$(dpkg --print-architecture) \
 # Claude Code CLI
 RUN npm install -g @anthropic-ai/claude-code
 
-# Create dev user
-RUN groupadd -g 1000 dev \
-    && useradd -m -u 1000 -g 1000 -s /bin/zsh dev
+# Create dev user (GID 1000 may already exist from base packages)
+RUN groupadd -g 1000 dev 2>/dev/null || true \
+    && useradd -m -u 1000 -g 1000 -s /bin/zsh dev 2>/dev/null \
+    || useradd -m -s /bin/zsh dev
 
 USER dev
 WORKDIR /home/dev
