@@ -13,7 +13,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: applications/olma-backend
-    tag: "initial"
+    tag: "swagger-v4"
     pullPolicy: IfNotPresent
 
   ports:
