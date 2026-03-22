@@ -37,9 +37,9 @@ rootPasswordSecretKey: root-password
 resources:
   requests:
     cpu: 110m
-    memory: 194Mi
+    memory: 384Mi
   limits:
-    memory: 194Mi
+    memory: 384Mi
 
 # Service
 service:
@@ -59,8 +59,8 @@ environment:
   MINIO_API_REPLICATION_MAX_LRG_WORKERS: "1"
   MINIO_API_TRANSITION_WORKERS: "1"
   MINIO_SCANNER_SPEED: "slowest"
-  # Limit Go runtime CPU usage
-  GOMAXPROCS: "1"
+  # Match Go runtime to available CPUs
+  GOMAXPROCS: "2"
 
 # API Ingress disabled - all consumers use internal service address
 ingress:
