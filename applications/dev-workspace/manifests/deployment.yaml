@@ -37,7 +37,7 @@ spec:
             memory: 2Gi
         volumeMounts:
         - name: data
-          mountPath: /home/dev
+          mountPath: /home/ubuntu
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
