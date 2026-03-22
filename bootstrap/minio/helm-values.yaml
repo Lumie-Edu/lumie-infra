@@ -9,7 +9,7 @@
 # - k3s-worker-4: /mnt/minio-data (0213 account)
 # Total: 4 drives for erasure coding (EC:2)
 
-# MinIO image (external registry - switch to zot after recovery)
+# MinIO image (bootstrap - uses external registry, zot not yet available)
 image:
   repository: quay.io/minio/minio
   tag: RELEASE.2025-01-20T14-49-07Z
@@ -117,6 +117,15 @@ users: []
 policies: []
 svcaccts: []
 
+# Post-install job resources (Kyverno: cpu requests required, memory limits required, no cpu limits)
+customCommandJob:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      memory: 128Mi
+
 # ILM lifecycle rule: auto-delete tmp OMR images after 24 hours
 customCommands:
-  - command: ilm rule add lumie/lumie-files --prefix "omr/tmp/" --expire-days 1
+  - command: ilm rule add myminio/lumie --prefix "omr/tmp/" --expire-days 1
