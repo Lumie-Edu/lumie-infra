@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-workspace
+  namespace: dev-workspace
+  labels:
+    app: dev-workspace
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: dev-workspace
+  template:
+    metadata:
+      labels:
+        app: dev-workspace
+    spec:
+      serviceAccountName: dev-workspace
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: dev
+        image: zot.lumie-infra.com/dev/dev-workspace:latest
+        command: ["sleep", "infinity"]
+        env:
+        - name: DOCKER_HOST
+          value: "tcp://localhost:2375"
+        - name: TZ
+          value: "Asia/Seoul"
+        resources:
+          requests:
+            cpu: 500m
+            memory: 4Gi
+          limits:
+            memory: 8Gi
+        volumeMounts:
+        - name: data
+          mountPath: /home/dev
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      - name: dind
+        image: zot.lumie-infra.com/library/docker:dind
+        env:
+        - name: DOCKER_TLS_CERTDIR
+          value: ""
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            memory: 2Gi
+        volumeMounts:
+        - name: docker-data
+          mountPath: /var/lib/docker
+        securityContext:
+          privileged: true
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: dev-workspace-data
+      - name: docker-data
+        persistentVolumeClaim:
+          claimName: dev-workspace-docker
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: DoesNotExist
