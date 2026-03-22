@@ -12,3 +12,7 @@ spec:
     port: 10350
     targetPort: tilt-ui
     protocol: TCP
+  - name: agents
+    port: 3000
+    targetPort: agents
+    protocol: TCP

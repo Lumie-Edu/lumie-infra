@@ -217,6 +217,14 @@ apps:
       category: applications
       teleport.icon: kube
 
+  # Pixel Agents (Claude Code Visualization)
+  - name: agents
+    uri: http://dev-workspace.dev-workspace.svc.cluster.local:3000
+    public_addr: agents.lumie-infra.com
+    labels:
+      env: prod
+      category: applications
+
   # AI Assistant (OpenClaw)
   - name: openclaw
     uri: http://openclaw.openclaw.svc.cluster.local:18789
