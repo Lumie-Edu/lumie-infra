@@ -155,15 +155,15 @@ common:
           templates:
             username: "{{ .Secrets.POSTGRES_USER }}"
             password: "{{ .Secrets.POSTGRES_PASSWORD }}"
-    # Database credentials (RO - openclaw)
+    # Database credentials (RO - lumie-agent)
     - name: ai-svc-ro-db-vss
       path: applications/ai-svc
       destination:
         name: ai-svc-ro-db-secrets
         transformation:
           templates:
-            username: "{{ .Secrets.OPENCLAW_USERNAME }}"
-            password: "{{ .Secrets.OPENCLAW_PASSWORD }}"
+            username: "{{ .Secrets.LUMIE_AGENT_USERNAME }}"
+            password: "{{ .Secrets.LUMIE_AGENT_PASSWORD }}"
     # DeepSeek API Key
     - name: ai-svc-secrets-vss
       path: applications/ai-svc
