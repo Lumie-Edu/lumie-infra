@@ -84,11 +84,11 @@ spec:
           port: 443
 
 ---
-# 5. Allow egress to lumie-db read replica
+# 5. Allow egress to infra-db
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: openclaw-allow-db-readonly
+  name: openclaw-allow-db
   namespace: openclaw
 spec:
   podSelector:
@@ -100,7 +100,7 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: lumie-db
+              kubernetes.io/metadata.name: infra-db
       ports:
         - protocol: TCP
           port: 5432
