@@ -1,20 +1,30 @@
 # Lumie Development Environment
-# ArgoCD manages: namespace, database, secrets
-# Tilt manages: deployments, services
+# ArgoCD manages: namespace, database, secrets, dev-workspace infra
+# Tilt manages: app deployments, app services
 
 common:
   name: lumie-dev
 
-  # Disable deployment (Tilt manages this)
+  # Disable deployment (Tilt manages app deployments, dev-workspace is custom manifest)
   deployment:
     enabled: false
 
-  # Disable service (Tilt manages this)
+  # Disable service (dev-workspace service is in custom manifest)
   service:
     enabled: false
 
   ingress:
     enabled: false
+
+  # Dev-workspace RBAC (cluster-admin for kubectl/helm/tilt)
+  rbac:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: dev-workspace
+    clusterRoleBinding:
+      roleRef:
+        name: cluster-admin
 
   # CNPG Database for dev environment
   database:

@@ -1,8 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-workspace
+  namespace: lumie-dev
+spec:
+  type: ClusterIP
+  selector:
+    app: dev-workspace
+  ports:
+  - name: tilt-ui
+    port: 10350
+    targetPort: tilt-ui
+    protocol: TCP
+  - name: agents
+    port: 3000
+    targetPort: agents
+    protocol: TCP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dev-workspace-data
+  namespace: lumie-dev
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 30Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dev-workspace-docker
+  namespace: lumie-dev
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 20Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dev-workspace
-  namespace: dev-workspace
+  namespace: lumie-dev
   labels:
     app: dev-workspace
 spec:

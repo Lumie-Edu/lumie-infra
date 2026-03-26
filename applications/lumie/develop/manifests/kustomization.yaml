@@ -5,3 +5,4 @@ resources:
   - certificate.yaml
   - ingress.yaml
   - rabbitmq.yaml
+  - dev-workspace.yaml
