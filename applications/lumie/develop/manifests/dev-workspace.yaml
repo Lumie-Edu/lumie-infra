@@ -76,6 +76,8 @@ spec:
           containerPort: 10350
           protocol: TCP
         env:
+        - name: HOME
+          value: "/home/ubuntu"
         - name: DOCKER_HOST
           value: "tcp://localhost:2375"
         - name: TZ
