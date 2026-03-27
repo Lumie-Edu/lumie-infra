@@ -33,13 +33,6 @@ data:
       ],
       "exchanges": [
         {
-          "name": "lumie.events",
-          "vhost": "/",
-          "type": "topic",
-          "durable": true,
-          "auto_delete": false
-        },
-        {
           "name": "lumie.commands",
           "vhost": "/",
           "type": "direct",
@@ -55,77 +48,6 @@ data:
         }
       ],
       "queues": [
-        {
-          "name": "billing.tenant-created",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx"
-          }
-        },
-        {
-          "name": "notification.tenant-created",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx"
-          }
-        },
-        {
-          "name": "notification.course-published",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx"
-          }
-        },
-        {
-          "name": "notification.assignment-submitted",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx"
-          }
-        },
-        {
-          "name": "analytics.result-submitted",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx"
-          }
-        },
-        {
-          "name": "tenant.schema-provisioning",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx",
-            "x-message-ttl": 300000
-          }
-        },
-        {
-          "name": "tenant.schema-provisioning.dlq",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum"
-          }
-        },
-        {
-          "name": "dlq.failed-messages",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum"
-          }
-        },
         {
           "name": "grading.omr-request",
           "vhost": "/",
@@ -154,55 +76,7 @@ data:
           }
         },
         {
-          "name": "billing.subscription",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx",
-            "x-dead-letter-routing-key": "billing.subscription.dlq",
-            "x-message-ttl": 300000
-          }
-        },
-        {
-          "name": "billing.subscription.dlq",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum"
-          }
-        },
-        {
-          "name": "billing.quota",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx",
-            "x-dead-letter-routing-key": "billing.quota.dlq",
-            "x-message-ttl": 300000
-          }
-        },
-        {
-          "name": "billing.quota.dlq",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum"
-          }
-        },
-        {
-          "name": "member.events",
-          "vhost": "/",
-          "durable": true,
-          "arguments": {
-            "x-queue-type": "quorum",
-            "x-dead-letter-exchange": "lumie.dlx",
-            "x-message-ttl": 300000
-          }
-        },
-        {
-          "name": "member.events.dlq",
+          "name": "dlq.failed-messages",
           "vhost": "/",
           "durable": true,
           "arguments": {
@@ -211,62 +85,6 @@ data:
         }
       ],
       "bindings": [
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "billing.tenant-created",
-          "destination_type": "queue",
-          "routing_key": "tenant.created"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "notification.tenant-created",
-          "destination_type": "queue",
-          "routing_key": "tenant.created"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "notification.course-published",
-          "destination_type": "queue",
-          "routing_key": "course.published"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "notification.assignment-submitted",
-          "destination_type": "queue",
-          "routing_key": "assignment.submitted"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "analytics.result-submitted",
-          "destination_type": "queue",
-          "routing_key": "result.submitted"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "tenant.schema-provisioning",
-          "destination_type": "queue",
-          "routing_key": "tenant.created.*"
-        },
-        {
-          "source": "lumie.dlx",
-          "vhost": "/",
-          "destination": "tenant.schema-provisioning.dlq",
-          "destination_type": "queue",
-          "routing_key": ""
-        },
-        {
-          "source": "lumie.dlx",
-          "vhost": "/",
-          "destination": "dlq.failed-messages",
-          "destination_type": "queue",
-          "routing_key": ""
-        },
         {
           "source": "lumie.commands",
           "vhost": "/",
@@ -282,65 +100,9 @@ data:
           "routing_key": ""
         },
         {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "grading.omr-completed",
-          "destination_type": "queue",
-          "routing_key": "grading.completed"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "billing.subscription",
-          "destination_type": "queue",
-          "routing_key": "tenant.created.*"
-        },
-        {
           "source": "lumie.dlx",
           "vhost": "/",
-          "destination": "billing.subscription.dlq",
-          "destination_type": "queue",
-          "routing_key": ""
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "billing.quota",
-          "destination_type": "queue",
-          "routing_key": "billing.quota.exceeded.*"
-        },
-        {
-          "source": "lumie.dlx",
-          "vhost": "/",
-          "destination": "billing.quota.dlq",
-          "destination_type": "queue",
-          "routing_key": ""
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "member.events",
-          "destination_type": "queue",
-          "routing_key": "member.created.*"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "member.events",
-          "destination_type": "queue",
-          "routing_key": "member.updated.*"
-        },
-        {
-          "source": "lumie.events",
-          "vhost": "/",
-          "destination": "member.events",
-          "destination_type": "queue",
-          "routing_key": "member.deleted.*"
-        },
-        {
-          "source": "lumie.dlx",
-          "vhost": "/",
-          "destination": "member.events.dlq",
+          "destination": "dlq.failed-messages",
           "destination_type": "queue",
           "routing_key": ""
         }
