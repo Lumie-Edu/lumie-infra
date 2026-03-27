@@ -14,7 +14,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: applications/exam-svc
-    tag: "633fbe57"
+    tag: "600a0f38"
     pullPolicy: IfNotPresent
 
   # Multiple container ports
