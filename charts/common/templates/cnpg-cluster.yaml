@@ -59,6 +59,12 @@ spec:
   {{- end }}
   affinity:
     podAntiAffinityType: required
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: DoesNotExist
   {{- if .Values.common.database.backup.enabled }}
   backup:
     barmanObjectStore:

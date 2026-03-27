@@ -19,7 +19,7 @@ common:
   database:
     enabled: true
     clusterName: lumie
-    instances: 2
+    instances: 4
     version: "18.1"
     name: lumie
     owner: bluemayne
@@ -32,7 +32,7 @@ common:
       secret: lumie-db-bootstrap-secret
     storage:
       class: local-path
-      size: 20Gi
+      size: 10Gi
     resources:
       memory: 512Mi
       cpu: 100m
@@ -52,6 +52,7 @@ common:
         max_wal_size: "2GB"
     backup:
       enabled: false
+      retention: "7d"
 
   # Vault Static Secrets for CNPG bootstrap
   vaultStaticSecrets:
