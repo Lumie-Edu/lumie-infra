@@ -210,7 +210,7 @@ apps:
 
   # Local Dev Environment
   - name: tilt
-    uri: http://dev-workspace.dev-workspace.svc.cluster.local:10350
+    uri: http://dev-workspace.lumie-dev.svc.cluster.local:10350
     public_addr: tilt.lumie-infra.com
     labels:
       env: prod
@@ -219,7 +219,7 @@ apps:
 
   # Pixel Agents (Claude Code Visualization)
   - name: agents
-    uri: http://dev-workspace.dev-workspace.svc.cluster.local:3000
+    uri: http://dev-workspace.lumie-dev.svc.cluster.local:3000
     public_addr: agents.lumie-infra.com
     labels:
       env: prod
