@@ -222,6 +222,23 @@ kubeStateMetrics:
   enabled: false
 
 # 기본 ServiceMonitors
+additionalPrometheusRulesMap:
+  oom-rules:
+    groups:
+      - name: oom.rules
+        rules:
+          - alert: ContainerOOMKilled
+            expr: |
+              increase(kube_pod_container_status_restarts_total[10m]) > 0
+              and on (namespace, pod, container)
+              kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Container OOMKilled: {{ $labels.namespace }}/{{ $labels.pod }}"
+              description: "Container {{ $labels.container }} in {{ $labels.namespace }}/{{ $labels.pod }} was OOMKilled."
+
 defaultRules:
   create: true
   # 비활성화할 개별 alert rule
