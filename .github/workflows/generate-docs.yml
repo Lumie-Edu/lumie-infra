@@ -19,7 +19,7 @@ on:
         type: string
 
 concurrency:
-  group: docs-gen-infra
+  group: docs-gen-infra-${{ inputs.section || github.sha }}
   cancel-in-progress: true
 
 jobs:
