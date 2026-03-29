@@ -10,7 +10,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: applications/lumie-frontend
-    tag: "990349a0"
+    tag: "fb549758"
     pullPolicy: IfNotPresent
 
   ports:
