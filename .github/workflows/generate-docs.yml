@@ -1,0 +1,30 @@
+name: Generate Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'applications/**'
+      - 'bootstrap/**'
+      - 'observability/**'
+      - 'platform/**'
+      - 'provision/**'
+      - 'security/**'
+      - 'storage/**'
+  workflow_dispatch:
+
+concurrency:
+  group: docs-gen-infra
+  cancel-in-progress: true
+
+jobs:
+  generate-docs:
+    uses: Lumie-Edu/lumie-document/.github/workflows/generate-docs-reusable.yml@main
+    with:
+      source-repo: lumie-infra
+      docs-section: infra
+      repomix-include: '**/*.yaml,**/*.yml'
+      repomix-ignore: '**/charts/**,**/dashboards/**,**/node_modules/**'
+    secrets:
+      anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+      docs-github-token: ${{ secrets.DOCS_GITHUB_TOKEN }}
