@@ -30,7 +30,6 @@ spec:
           - argocd
           - cert-manager
           - external-secrets
-          - gitea
           - haproxy
           - minio
           - vault
@@ -60,7 +59,6 @@ spec:
           - argocd
           - cert-manager
           - external-secrets
-          - gitea
           - haproxy
           - minio
           - vault
@@ -92,7 +90,6 @@ spec:
           - argocd
           - cert-manager
           - external-secrets
-          - gitea
           - haproxy
           - minio
           - vault

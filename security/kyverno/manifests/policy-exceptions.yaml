@@ -21,7 +21,6 @@ spec:
         - argocd
         - cert-manager
         - external-secrets
-        - gitea
         - kong
         - minio
         - vault
