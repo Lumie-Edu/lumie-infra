@@ -3,7 +3,7 @@ kind: Cluster
 metadata:
   name: infra-db
 spec:
-  instances: 2
+  instances: 4
   imageName: zot.lumie-infra.com/storage/postgresql-wal2json:18.1
 
   bootstrap:
@@ -24,7 +24,7 @@ spec:
         - "CREATE DATABASE openclaw OWNER openclaw"
 
   storage:
-    storageClass: local-path
+    storageClass: local-path-retain
     size: 2Gi
 
   resources:

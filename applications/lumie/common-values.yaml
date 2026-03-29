@@ -31,7 +31,7 @@ common:
     bootstrap:
       secret: lumie-db-bootstrap-secret
     storage:
-      class: local-path
+      class: local-path-retain
       size: 10Gi
     resources:
       memory: 512Mi
