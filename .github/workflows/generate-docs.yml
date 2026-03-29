@@ -12,18 +12,113 @@ on:
       - 'security/**'
       - 'storage/**'
   workflow_dispatch:
+    inputs:
+      section:
+        description: 'Specific section to generate (empty = detect from changes)'
+        required: false
+        type: string
 
 concurrency:
   group: docs-gen-infra
   cancel-in-progress: true
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.map.outputs.matrix }}
+      has-changes: ${{ steps.map.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Map changed files to doc sections
+        id: map
+        run: |
+          # Manual override
+          if [ -n "${{ inputs.section }}" ]; then
+            SECTION="${{ inputs.section }}"
+            case "$SECTION" in
+              cluster)  INCLUDE="provision/**/*.yaml,provision/**/*.yml,provision/**/*.tf,provision/**/*.cfg" ;;
+              gitops)   INCLUDE="applications/argocd/**/*.yaml,applications/tekton/**/*.yaml,bootstrap/zot/**/*.yaml" ;;
+              networking) INCLUDE="bootstrap/kong/**/*.yaml,platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml" ;;
+              security) INCLUDE="security/**/*.yaml" ;;
+              observability) INCLUDE="observability/**/*.yaml,observability/**/*.yml" ;;
+              storage)  INCLUDE="storage/**/*.yaml,bootstrap/minio/**/*.yaml" ;;
+              platform) INCLUDE="platform/rabbitmq/**/*.yaml,platform/rabbitmq-operator/**/*.yaml,bootstrap/vault/**/*.yaml,platform/priority-classes/**/*.yaml" ;;
+              *) echo "Unknown section: $SECTION"; exit 1 ;;
+            esac
+            echo "matrix=[{\"section\":\"infra/$SECTION\",\"include\":\"$INCLUDE\"}]" >> "$GITHUB_OUTPUT"
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          CHANGED=$(git diff --name-only HEAD~1..HEAD 2>/dev/null || echo "")
+          if [ -z "$CHANGED" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          SECTIONS=""
+          add_section() {
+            local s="$1" i="$2"
+            if [[ "$SECTIONS" != *"$s"* ]]; then
+              if [ -n "$SECTIONS" ]; then SECTIONS="$SECTIONS,"; fi
+              SECTIONS="${SECTIONS}{\"section\":\"infra/$s\",\"include\":\"$i\"}"
+            fi
+          }
+
+          while IFS= read -r file; do
+            case "$file" in
+              provision/*)
+                add_section "cluster" "provision/**/*.yaml,provision/**/*.yml,provision/**/*.tf,provision/**/*.cfg"
+                ;;
+              applications/argocd/*|applications/tekton/*|bootstrap/zot/*)
+                add_section "gitops" "applications/argocd/**/*.yaml,applications/tekton/**/*.yaml,bootstrap/zot/**/*.yaml"
+                ;;
+              bootstrap/kong/*|platform/cert-manager/*|platform/coredns-config/*)
+                add_section "networking" "bootstrap/kong/**/*.yaml,platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml"
+                ;;
+              security/*)
+                add_section "security" "security/**/*.yaml"
+                ;;
+              observability/*)
+                add_section "observability" "observability/**/*.yaml,observability/**/*.yml"
+                ;;
+              storage/*|bootstrap/minio/*)
+                add_section "storage" "storage/**/*.yaml,bootstrap/minio/**/*.yaml"
+                ;;
+              platform/rabbitmq/*|platform/rabbitmq-operator/*|bootstrap/vault/*|platform/priority-classes/*)
+                add_section "platform" "platform/rabbitmq/**/*.yaml,platform/rabbitmq-operator/**/*.yaml,bootstrap/vault/**/*.yaml,platform/priority-classes/**/*.yaml"
+                ;;
+              applications/lumie/*)
+                # App manifests don't need docs
+                ;;
+            esac
+          done <<< "$CHANGED"
+
+          if [ -z "$SECTIONS" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "matrix=[$SECTIONS]" >> "$GITHUB_OUTPUT"
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          echo "Sections: [$SECTIONS]"
+
   generate-docs:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    strategy:
+      matrix:
+        include: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+      max-parallel: 2
     uses: Lumie-Edu/lumie-document/.github/workflows/generate-docs-reusable.yml@main
     with:
       source-repo: lumie-infra
-      docs-section: infra
-      repomix-include: '**/*.yaml,**/*.yml'
+      docs-section: ${{ matrix.section }}
+      repomix-include: ${{ matrix.include }}
       repomix-ignore: '**/charts/**,**/dashboards/**,**/node_modules/**'
     secrets:
       anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
