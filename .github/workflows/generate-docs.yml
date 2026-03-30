@@ -121,5 +121,5 @@ jobs:
       repomix-include: ${{ matrix.include }}
       repomix-ignore: '**/charts/**,**/dashboards/**,**/node_modules/**'
     secrets:
-      anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+      gemini-api-key: ${{ secrets.GOOGLE_API_KEY }}
       docs-github-token: ${{ secrets.DOCS_GITHUB_TOKEN }}
