@@ -20,11 +20,33 @@ data:
           "dangerouslyDisableDeviceAuth": true
         }
       },
+      "channels": {
+        "telegram": {
+          "enabled": true,
+          "botToken": "${TELEGRAM_BOT_TOKEN}"
+        }
+      },
       "agents": {
         "defaults": {
           "model": {
             "primary": "deepseek/deepseek-chat"
           }
+        },
+        "list": [
+          { "id": "main" },
+          {
+            "id": "health",
+            "name": "health",
+            "workspace": "/home/node/.openclaw/workspaces/health",
+            "agentDir": "/home/node/.openclaw/agents/health/agent",
+            "model": "deepseek/deepseek-chat"
+          }
+        ]
+      },
+      "tools": {
+        "agentToAgent": {
+          "enabled": true,
+          "allow": ["main", "health"]
         }
       },
       "models": {

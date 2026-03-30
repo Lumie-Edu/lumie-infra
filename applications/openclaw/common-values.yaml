@@ -69,3 +69,14 @@ common:
       rolloutRestartTargets:
         - kind: Deployment
           name: openclaw
+    - name: openclaw-tokens-vss
+      path: tokens
+      destination:
+        name: openclaw-token-secrets
+        transformation:
+          templates:
+            TELEGRAM_BOT_TOKEN: "{{ .Secrets.TELEGRAM_BOT_TOKEN }}"
+            ANTHROPIC_API_KEY: "{{ .Secrets.ANTHROPIC_API_KEY }}"
+      rolloutRestartTargets:
+        - kind: Deployment
+          name: openclaw

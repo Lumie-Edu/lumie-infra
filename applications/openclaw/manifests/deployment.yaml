@@ -32,6 +32,28 @@ spec:
             - |
               cp /tmp/openclaw-config/openclaw.json /home/node/.openclaw/openclaw.json
               echo "Config synced from ConfigMap"
+
+              # Seed main workspace (only if not already populated)
+              mkdir -p /home/node/.openclaw/workspace
+              for f in /tmp/openclaw-workspace/main-*; do
+                filename="${f##*/main-}"
+                if [ ! -f "/home/node/.openclaw/workspace/$filename" ]; then
+                  cp "$f" "/home/node/.openclaw/workspace/$filename"
+                  echo "Seeded workspace/$filename"
+                fi
+              done
+
+              # Seed health agent workspace
+              mkdir -p /home/node/.openclaw/workspaces/health
+              mkdir -p /home/node/.openclaw/agents/health/agent
+              mkdir -p /home/node/.openclaw/agents/health/sessions
+              for f in /tmp/openclaw-workspace/health-*; do
+                filename="${f##*/health-}"
+                if [ ! -f "/home/node/.openclaw/workspaces/health/$filename" ]; then
+                  cp "$f" "/home/node/.openclaw/workspaces/health/$filename"
+                  echo "Seeded workspaces/health/$filename"
+                fi
+              done
           securityContext:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
@@ -44,6 +66,9 @@ spec:
               mountPath: /home/node/.openclaw
             - name: openclaw-config
               mountPath: /tmp/openclaw-config
+              readOnly: true
+            - name: openclaw-workspace
+              mountPath: /tmp/openclaw-workspace
               readOnly: true
       containers:
         - name: openclaw
@@ -84,6 +109,16 @@ spec:
                 secretKeyRef:
                   name: openclaw-secrets
                   key: OPENCLAW_DB_PASSWORD
+            - name: TELEGRAM_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: openclaw-token-secrets
+                  key: TELEGRAM_BOT_TOKEN
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openclaw-token-secrets
+                  key: ANTHROPIC_API_KEY
             - name: DATABASE_URL
               value: postgresql://openclaw:$(OPENCLAW_DB_PASSWORD)@infra-db-rw.infra-db.svc:5432/openclaw
           volumeMounts:
@@ -119,11 +154,14 @@ spec:
             failureThreshold: 18
       volumes:
         - name: config
-          emptyDir:
-            sizeLimit: 50Mi
+          persistentVolumeClaim:
+            claimName: openclaw-data
         - name: openclaw-config
           configMap:
             name: openclaw-config
+        - name: openclaw-workspace
+          configMap:
+            name: openclaw-workspace-seed
         - name: tmp
           emptyDir:
             sizeLimit: 100Mi
