@@ -44,7 +44,7 @@ common:
   # Vault Static Secret for LLM API Key
   vaultStaticSecrets:
     - name: analysis-svc-vss
-      path: applications/ai-svc
+      path: tokens
       destination:
         name: analysis-svc-secrets
         transformation:

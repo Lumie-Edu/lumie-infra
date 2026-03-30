@@ -97,7 +97,7 @@ spec:
             - name: DEEPSEEK_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: openclaw-secrets
+                  name: openclaw-token-secrets
                   key: DEEPSEEK_API_KEY
             - name: OPENCLAW_GATEWAY_TOKEN
               valueFrom:
@@ -119,6 +119,16 @@ spec:
                 secretKeyRef:
                   name: openclaw-token-secrets
                   key: ANTHROPIC_API_KEY
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openclaw-token-secrets
+                  key: OPENAI_API_KEY
+            - name: GOOGLE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openclaw-token-secrets
+                  key: GOOGLE_API_KEY
             - name: DATABASE_URL
               value: postgresql://openclaw:$(OPENCLAW_DB_PASSWORD)@infra-db-rw.infra-db.svc:5432/openclaw
           volumeMounts:

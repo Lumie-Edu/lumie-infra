@@ -110,16 +110,23 @@ common:
             access-key: "{{ .Secrets.MINIO_ACCESS_KEY_ID }}"
             secret-key: "{{ .Secrets.MINIO_SECRET_ACCESS_KEY }}"
             endpoint: "{{ .Secrets.MINIO_ENDPOINT }}"
-    # AI service credentials (DeepSeek API + ReadOnly DB)
-    - name: lumie-dev-ai-vss
-      path: applications/ai-svc
+    # AI API Key
+    - name: lumie-dev-ai-token-vss
+      path: tokens
       destination:
-        name: lumie-dev-ai-secrets
+        name: lumie-dev-ai-token-secrets
         transformation:
           templates:
             deepseek-api-key: "{{ .Secrets.DEEPSEEK_API_KEY }}"
-            ro-db-username: "{{ .Secrets.OPENCLAW_USERNAME }}"
-            ro-db-password: "{{ .Secrets.OPENCLAW_PASSWORD }}"
+    # AI service DB credentials (ReadOnly)
+    - name: lumie-dev-ai-db-vss
+      path: applications/ai-svc
+      destination:
+        name: lumie-dev-ai-db-secrets
+        transformation:
+          templates:
+            ro-db-username: "{{ .Secrets.LUMIE_AGENT_USERNAME }}"
+            ro-db-password: "{{ .Secrets.LUMIE_AGENT_PASSWORD }}"
     # PgBouncer userlist (format: "username" "password")
     - name: pgbouncer-userlist-vss
       path: storage/postgresql

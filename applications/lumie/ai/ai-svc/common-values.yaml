@@ -166,7 +166,7 @@ common:
             password: "{{ .Secrets.LUMIE_AGENT_PASSWORD }}"
     # DeepSeek API Key
     - name: ai-svc-secrets-vss
-      path: applications/ai-svc
+      path: tokens
       destination:
         name: ai-svc-secrets
         transformation:

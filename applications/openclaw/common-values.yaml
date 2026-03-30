@@ -63,7 +63,6 @@ common:
         name: openclaw-secrets
         transformation:
           templates:
-            DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"
             OPENCLAW_GATEWAY_TOKEN: "{{ .Secrets.OPENCLAW_GATEWAY_TOKEN }}"
             OPENCLAW_DB_PASSWORD: "{{ .Secrets.OPENCLAW_DB_PASSWORD }}"
       rolloutRestartTargets:
@@ -75,8 +74,11 @@ common:
         name: openclaw-token-secrets
         transformation:
           templates:
+            DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"
             TELEGRAM_BOT_TOKEN: "{{ .Secrets.TELEGRAM_BOT_TOKEN }}"
             ANTHROPIC_API_KEY: "{{ .Secrets.ANTHROPIC_API_KEY }}"
+            OPENAI_API_KEY: "{{ .Secrets.OPENAI_API_KEY }}"
+            GOOGLE_API_KEY: "{{ .Secrets.GOOGLE_API_KEY }}"
       rolloutRestartTargets:
         - kind: Deployment
           name: openclaw
