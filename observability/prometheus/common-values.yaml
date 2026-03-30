@@ -16,7 +16,7 @@ common:
   vaultStaticSecrets:
     # PostgreSQL password for postgres-exporter
     - name: postgresql-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: postgresql-password
         transformation:
@@ -25,7 +25,7 @@ common:
 
     # Thanos object store credentials
     - name: minio-vss
-      path: bootstrap/minio
+      path: infrastructure/minio
       destination:
         name: thanos-objstore-secret
         transformation:
@@ -41,7 +41,7 @@ common:
 
     # Zot registry credentials for image pull
     - name: zot-vss
-      path: bootstrap/zot
+      path: infrastructure/zot
       destination:
         name: zot-registry-credentials
         type: kubernetes.io/dockerconfigjson

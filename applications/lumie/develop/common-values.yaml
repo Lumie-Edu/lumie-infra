@@ -59,7 +59,7 @@ common:
   vaultStaticSecrets:
     # Database bootstrap credentials for CNPG
     - name: lumie-dev-db-bootstrap-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: lumie-dev-db-bootstrap-secret
         type: kubernetes.io/basic-auth
@@ -69,7 +69,7 @@ common:
             password: "{{ .Secrets.POSTGRES_PASSWORD }}"
     # Database credentials for services
     - name: lumie-dev-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: lumie-dev-db-secrets
         transformation:
@@ -78,7 +78,7 @@ common:
             password: "{{ .Secrets.POSTGRES_PASSWORD }}"
     # RabbitMQ credentials
     - name: lumie-dev-rabbitmq-vss
-      path: platform/rabbitmq
+      path: infrastructure/rabbitmq
       destination:
         name: lumie-dev-rabbitmq-secrets
         transformation:
@@ -86,7 +86,7 @@ common:
             password: "{{ .Secrets.RABBITMQ_PASSWORD }}"
     # Redis credentials
     - name: lumie-dev-redis-vss
-      path: platform/redis
+      path: infrastructure/redis
       destination:
         name: lumie-dev-redis-secrets
         transformation:
@@ -102,7 +102,7 @@ common:
             secret: "{{ .Secrets.JWT_SECRET_KEY }}"
     # MinIO credentials (for file-svc)
     - name: lumie-dev-minio-vss
-      path: bootstrap/minio
+      path: infrastructure/minio
       destination:
         name: lumie-dev-minio-secrets
         transformation:
@@ -129,7 +129,7 @@ common:
             ro-db-password: "{{ .Secrets.LUMIE_AGENT_PASSWORD }}"
     # PgBouncer userlist (format: "username" "password")
     - name: pgbouncer-userlist-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: pgbouncer-userlist
         transformation:

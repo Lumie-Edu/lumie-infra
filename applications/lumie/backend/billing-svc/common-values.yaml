@@ -152,7 +152,7 @@ common:
   vaultStaticSecrets:
     # Database credentials
     - name: billing-svc-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: billing-svc-db-secrets
         transformation:
@@ -161,7 +161,7 @@ common:
             password: "{{ .Secrets.POSTGRES_PASSWORD }}"
     # RabbitMQ credentials
     - name: billing-svc-rabbitmq-vss
-      path: platform/rabbitmq
+      path: infrastructure/rabbitmq
       destination:
         name: billing-svc-rabbitmq-secrets
         transformation:

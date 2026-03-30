@@ -148,7 +148,7 @@ common:
   vaultStaticSecrets:
     # Database credentials (RW)
     - name: ai-svc-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: ai-svc-db-secrets
         transformation:

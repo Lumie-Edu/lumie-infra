@@ -27,7 +27,7 @@ common:
 
     # DB secret (replaces CNPG auto-generated umami-db-app)
     - name: umami-db-app-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: umami-db-app
         transformation:

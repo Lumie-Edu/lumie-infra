@@ -18,7 +18,7 @@ common:
   vaultStaticSecrets:
     # DB credential secret (password for shared infra-db)
     - name: keycloak-db-bootstrap-static
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: keycloak-db-bootstrap
         transformation:
@@ -31,7 +31,7 @@ common:
 
     # Keycloak admin password
     - name: keycloak-secrets-static
-      path: security/keycloak
+      path: infrastructure/keycloak
       destination:
         name: keycloak-secrets
         transformation:

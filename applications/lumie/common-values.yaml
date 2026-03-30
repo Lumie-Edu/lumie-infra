@@ -57,7 +57,7 @@ common:
   # Vault Static Secrets for CNPG bootstrap
   vaultStaticSecrets:
     - name: lumie-db-bootstrap-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: lumie-db-bootstrap-secret
         type: kubernetes.io/basic-auth

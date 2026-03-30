@@ -15,7 +15,7 @@ common:
   # Vault Static Secrets (VSO)
   vaultStaticSecrets:
     - name: minio-vss
-      path: bootstrap/minio
+      path: infrastructure/minio
       destination:
         name: thanos-objstore-secret
         transformation:

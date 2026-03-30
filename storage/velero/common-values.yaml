@@ -18,7 +18,7 @@ common:
   # Vault Static Secrets (VSO)
   vaultStaticSecrets:
     - name: minio-vss
-      path: bootstrap/minio
+      path: infrastructure/minio
       destination:
         name: velero-s3-credentials
         transformation:

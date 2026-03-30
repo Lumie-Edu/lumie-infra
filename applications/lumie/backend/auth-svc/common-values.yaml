@@ -192,7 +192,7 @@ common:
   vaultStaticSecrets:
     # Database credentials (from Vault storage/postgresql)
     - name: auth-svc-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: auth-svc-db-secrets
         transformation:
@@ -201,7 +201,7 @@ common:
             password: "{{ .Secrets.POSTGRES_PASSWORD }}"
     # Redis credentials
     - name: auth-svc-redis-vss
-      path: platform/redis
+      path: infrastructure/redis
       destination:
         name: auth-svc-redis-secrets
         transformation:
@@ -209,7 +209,7 @@ common:
             REDIS_PASSWORD: "{{ .Secrets.REDIS_PASSWORD }}"
     # RabbitMQ credentials
     - name: auth-svc-rabbitmq-vss
-      path: platform/rabbitmq
+      path: infrastructure/rabbitmq
       destination:
         name: auth-svc-rabbitmq-secrets
         transformation:
@@ -227,7 +227,7 @@ common:
             JWT_REFRESH_EXPIRATION: "{{ .Secrets.JWT_REFRESH_EXPIRATION }}"
     # OAuth secrets
     - name: auth-svc-oauth-vss
-      path: security/oauth
+      path: tokens
       destination:
         name: auth-svc-oauth-secrets
         transformation:

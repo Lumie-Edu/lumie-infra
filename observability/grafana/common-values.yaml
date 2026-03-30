@@ -23,7 +23,7 @@ common:
   # VSO: Create grafana-db-app secret (replaces CNPG auto-generated secret)
   vaultStaticSecrets:
     - name: grafana-db-app-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: grafana-db-app
         transformation:

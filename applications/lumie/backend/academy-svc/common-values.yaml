@@ -147,7 +147,7 @@ common:
   vaultStaticSecrets:
     # RabbitMQ credentials
     - name: academy-svc-rabbitmq-vss
-      path: platform/rabbitmq
+      path: infrastructure/rabbitmq
       destination:
         name: academy-svc-rabbitmq-secrets
         transformation:
@@ -155,7 +155,7 @@ common:
             RABBITMQ_PASSWORD: "{{ .Secrets.RABBITMQ_PASSWORD }}"
     # Database credentials (from Vault storage/postgresql)
     - name: academy-svc-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: academy-svc-db-secrets
         transformation:

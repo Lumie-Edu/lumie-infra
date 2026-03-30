@@ -144,7 +144,7 @@ common:
   vaultStaticSecrets:
     # Database credentials
     - name: file-svc-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: file-svc-db-secrets
         transformation:
@@ -153,7 +153,7 @@ common:
             password: "{{ .Secrets.POSTGRES_PASSWORD }}"
     # MinIO credentials
     - name: file-svc-minio-vss
-      path: bootstrap/minio
+      path: infrastructure/minio
       destination:
         name: file-svc-minio-secrets
         transformation:

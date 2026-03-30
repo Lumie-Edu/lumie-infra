@@ -17,7 +17,7 @@ common:
   # Vault Static Secrets for RabbitMQ credentials
   vaultStaticSecrets:
     - name: rabbitmq-vss
-      path: platform/rabbitmq
+      path: infrastructure/rabbitmq
       destination:
         name: rabbitmq-secrets
         transformation:

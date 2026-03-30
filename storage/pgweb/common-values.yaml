@@ -15,7 +15,7 @@ common:
   # Vault Static Secrets (VSO)
   vaultStaticSecrets:
     - name: pgweb-db-vss
-      path: storage/postgresql
+      path: infrastructure/postgresql
       destination:
         name: pgweb-db-secrets
         transformation:
