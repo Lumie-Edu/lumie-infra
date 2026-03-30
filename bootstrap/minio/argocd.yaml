@@ -23,6 +23,9 @@ spec:
     helm:
       valueFiles:
       - $values/bootstrap/minio/common-values.yaml
+  - repoURL: https://github.com/Lumie-Edu/lumie-infra.git
+    targetRevision: main
+    path: bootstrap/minio/manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: minio

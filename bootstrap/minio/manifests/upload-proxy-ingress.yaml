@@ -1,0 +1,41 @@
+# Presigned URL upload proxy: Kong → MinIO
+# Allows browsers to PUT OMR images directly to MinIO via presigned URLs.
+# No JWT — presigned URLs carry their own AWS Signature V4 authentication.
+# Path restricted to omr/tmp/ to prevent access to other bucket objects.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio-upload-proxy
+  namespace: minio
+  annotations:
+    konghq.com/plugins: lumie-cors,minio-upload-method-restriction
+    konghq.com/preserve-host: "true"
+    konghq.com/strip-path: "false"
+spec:
+  ingressClassName: kong
+  rules:
+    - host: lumie-edu.com
+      http:
+        paths:
+          - path: /lumie/omr/tmp/
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9000
+---
+# Restrict MinIO upload proxy to PUT and OPTIONS (CORS preflight) only
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: minio-upload-method-restriction
+  namespace: minio
+plugin: pre-function
+config:
+  access:
+    - |
+      local method = kong.request.get_method()
+      if method ~= "PUT" and method ~= "OPTIONS" then
+        return kong.response.exit(405, { message = "Method not allowed" })
+      end

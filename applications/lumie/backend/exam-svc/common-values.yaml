@@ -85,6 +85,8 @@ common:
       value: "http://report-svc.lumie-report.svc:8000"
     - name: MINIO_ENDPOINT
       value: "http://minio.minio.svc:9000"
+    - name: MINIO_EXTERNAL_ENDPOINT
+      value: "https://lumie-edu.com"
     - name: MINIO_ACCESS_KEY
       valueFrom:
         secretKeyRef:
