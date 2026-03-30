@@ -1,16 +1,6 @@
 name: Generate Documentation
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'applications/**'
-      - 'bootstrap/**'
-      - 'observability/**'
-      - 'platform/**'
-      - 'provision/**'
-      - 'security/**'
-      - 'storage/**'
   workflow_dispatch:
     inputs:
       section:
