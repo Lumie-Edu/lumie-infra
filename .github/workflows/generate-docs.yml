@@ -31,7 +31,7 @@ jobs:
             SECTION="${{ inputs.section }}"
             case "$SECTION" in
               cluster)  INCLUDE="provision/**/*.yaml,provision/**/*.yml,provision/**/*.tf,provision/**/*.cfg" ;;
-              gitops)   INCLUDE="applications/argocd/**/*.yaml,applications/tekton/**/*.yaml,bootstrap/zot/**/*.yaml" ;;
+              gitops)   INCLUDE="applications/argocd/**/*.yaml,applications/tekton/**/*.yaml,bootstrap/zot/**/*.yaml,.github/**/*.yml" ;;
               networking) INCLUDE="bootstrap/kong/**/*.yaml,platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml" ;;
               security) INCLUDE="security/**/*.yaml" ;;
               observability) INCLUDE="observability/**/*.yaml,observability/**/*.yml" ;;
