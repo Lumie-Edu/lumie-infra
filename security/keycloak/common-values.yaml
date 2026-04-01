@@ -101,8 +101,8 @@ common:
               "linkOnly": false,
               "firstBrokerLoginFlowAlias": "first broker login",
               "config": {
-                "clientId": "PLACEHOLDER_GOOGLE_CLIENT_ID",
-                "clientSecret": "PLACEHOLDER_GOOGLE_CLIENT_SECRET",
+                "clientId": "${vault.GOOGLE_CLIENT_ID}",
+                "clientSecret": "${vault.GOOGLE_CLIENT_SECRET}",
                 "defaultScope": "openid email profile",
                 "syncMode": "IMPORT"
               }
@@ -117,8 +117,8 @@ common:
               "linkOnly": false,
               "firstBrokerLoginFlowAlias": "first broker login",
               "config": {
-                "clientId": "PLACEHOLDER_KAKAO_CLIENT_ID",
-                "clientSecret": "PLACEHOLDER_KAKAO_CLIENT_SECRET",
+                "clientId": "${vault.KAKAO_CLIENT_ID}",
+                "clientSecret": "${vault.KAKAO_CLIENT_SECRET}",
                 "authorizationUrl": "https://kauth.kakao.com/oauth/authorize",
                 "tokenUrl": "https://kauth.kakao.com/oauth/token",
                 "userInfoUrl": "https://kapi.kakao.com/v2/user/me",
@@ -135,7 +135,7 @@ common:
               "enabled": true,
               "protocol": "openid-connect",
               "publicClient": false,
-              "secret": "PLACEHOLDER_LUMIE_APP_SECRET",
+              "secret": "${vault.KEYCLOAK_LUMIE_CLIENT_SECRET}",
               "standardFlowEnabled": true,
               "directAccessGrantsEnabled": false,
               "redirectUris": [
@@ -170,8 +170,8 @@ common:
               "linkOnly": false,
               "firstBrokerLoginFlowAlias": "first broker login",
               "config": {
-                "clientId": "PLACEHOLDER_GOOGLE_CLIENT_ID",
-                "clientSecret": "PLACEHOLDER_GOOGLE_CLIENT_SECRET",
+                "clientId": "${vault.GOOGLE_CLIENT_ID}",
+                "clientSecret": "${vault.GOOGLE_CLIENT_SECRET}",
                 "defaultScope": "openid email profile",
                 "syncMode": "IMPORT"
               }
@@ -186,8 +186,8 @@ common:
               "linkOnly": false,
               "firstBrokerLoginFlowAlias": "first broker login",
               "config": {
-                "clientId": "PLACEHOLDER_KAKAO_CLIENT_ID",
-                "clientSecret": "PLACEHOLDER_KAKAO_CLIENT_SECRET",
+                "clientId": "${vault.KAKAO_CLIENT_ID}",
+                "clientSecret": "${vault.KAKAO_CLIENT_SECRET}",
                 "authorizationUrl": "https://kauth.kakao.com/oauth/authorize",
                 "tokenUrl": "https://kauth.kakao.com/oauth/token",
                 "userInfoUrl": "https://kapi.kakao.com/v2/user/me",
@@ -204,7 +204,7 @@ common:
               "enabled": true,
               "protocol": "openid-connect",
               "publicClient": false,
-              "secret": "PLACEHOLDER_LUMIE_APP_DEV_SECRET",
+              "secret": "${vault.KEYCLOAK_LUMIE_CLIENT_SECRET}",
               "standardFlowEnabled": true,
               "directAccessGrantsEnabled": false,
               "redirectUris": [
@@ -241,6 +241,22 @@ common:
         transformation:
           templates:
             KEYCLOAK_ADMIN_PASSWORD: "{{ .Secrets.KEYCLOAK_ADMIN_PASSWORD }}"
+      rolloutRestartTargets:
+        - kind: StatefulSet
+          name: keycloak
+
+    # OAuth secrets for Keycloak vault provider (IdP credentials)
+    - name: keycloak-oauth-secrets-static
+      path: tokens
+      destination:
+        name: keycloak-oauth-secrets
+        transformation:
+          templates:
+            GOOGLE_CLIENT_ID: "{{ .Secrets.GOOGLE_CLIENT_ID }}"
+            GOOGLE_CLIENT_SECRET: "{{ .Secrets.GOOGLE_CLIENT_SECRET }}"
+            KAKAO_CLIENT_ID: "{{ .Secrets.KAKAO_CLIENT_ID }}"
+            KAKAO_CLIENT_SECRET: "{{ .Secrets.KAKAO_CLIENT_SECRET }}"
+            KEYCLOAK_LUMIE_CLIENT_SECRET: "{{ .Secrets.KEYCLOAK_LUMIE_CLIENT_SECRET }}"
       rolloutRestartTargets:
         - kind: StatefulSet
           name: keycloak

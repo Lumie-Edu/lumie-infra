@@ -38,6 +38,10 @@ extraEnv: |
     value: "auth.lumie-edu.com"
   - name: KC_HOSTNAME_STRICT
     value: "false"
+  - name: KC_VAULT
+    value: "file"
+  - name: KC_VAULT_DIR
+    value: "/vault/secrets"
   - name: KEYCLOAK_ADMIN
     value: admin
   - name: KEYCLOAK_ADMIN_PASSWORD
@@ -79,10 +83,16 @@ extraVolumes: |
   - name: realm-import
     configMap:
       name: keycloak-realm-import
+  - name: vault-secrets
+    secret:
+      secretName: keycloak-oauth-secrets
 
 extraVolumeMounts: |
   - name: realm-import
     mountPath: /opt/keycloak/data/import
+    readOnly: true
+  - name: vault-secrets
+    mountPath: /vault/secrets
     readOnly: true
 
 # Disable built-in ingress (access via Teleport only)
