@@ -1,0 +1,64 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: teleport-kube-agent
+    repo: https://charts.releases.teleport.dev
+    version: 18.1.2
+    releaseName: teleport-agent
+    namespace: teleport
+    valuesFile: helm-values.yaml
+
+patches:
+  # Add envsubst init container + processed-config volume.
+  # Teleport doesn't expand env vars in rewrite.headers, so we
+  # preprocess the config with sed before Teleport starts.
+  - target:
+      kind: StatefulSet
+      name: teleport-agent
+    patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: teleport-agent
+      spec:
+        template:
+          spec:
+            volumes:
+              - name: processed-config
+                emptyDir: {}
+            initContainers:
+              - name: envsubst-config
+                image: zot.lumie-infra.com/library/busybox:1.37
+                command:
+                  - sh
+                  - -c
+                  - |
+                    sed "s|\$ZOT_BASIC_AUTH|$ZOT_BASIC_AUTH|g" \
+                      /etc/teleport/teleport.yaml > /processed/teleport.yaml
+                env:
+                  - name: ZOT_BASIC_AUTH
+                    valueFrom:
+                      secretKeyRef:
+                        name: teleport-app-basic-auth-zot
+                        key: zot
+                volumeMounts:
+                  - name: config
+                    mountPath: /etc/teleport
+                    readOnly: true
+                  - name: processed-config
+                    mountPath: /processed
+  # Point Teleport to the processed config + mount the emptyDir
+  - target:
+      kind: StatefulSet
+      name: teleport-agent
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: "--config=/processed/teleport.yaml"
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: processed-config
+          mountPath: /processed
+          readOnly: true

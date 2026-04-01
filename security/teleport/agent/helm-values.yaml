@@ -130,6 +130,9 @@ apps:
   - name: zot
     uri: http://zot.zot.svc.cluster.local:5000
     public_addr: zot-ui.lumie-infra.com
+    rewrite:
+      headers:
+        - "Authorization: $ZOT_BASIC_AUTH"
     labels:
       env: prod
       category: platform

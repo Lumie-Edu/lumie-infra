@@ -46,16 +46,10 @@ metadata:
   - post-delete-finalizer.argocd.argoproj.io/cleanup
 spec:
   project: default
-  sources:
-  - repoURL: https://charts.releases.teleport.dev
-    chart: teleport-kube-agent
-    targetRevision: 18.1.2
-    helm:
-      valueFiles:
-      - $values/security/teleport/agent-values.yaml
-  - repoURL: https://github.com/Lumie-Edu/lumie-infra.git
+  source:
+    repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
-    ref: values
+    path: security/teleport/agent
   destination:
     server: https://kubernetes.default.svc
     namespace: teleport

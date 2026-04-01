@@ -5,3 +5,4 @@ resources:
   - certificate.yaml
   - provision-token.yaml
   - vault-static-secret.yaml
+  - teleport-agent-credentials-vss.yaml
