@@ -11,6 +11,7 @@ command:
   - "/opt/keycloak/bin/kc.sh"
 args:
   - "start"
+  - "--import-realm"
 
 # Startup probe - Keycloak needs time to build optimized config on first start
 startupProbe: |
@@ -70,6 +71,17 @@ resources:
 
 # Disable anti-affinity (single replica)
 affinity: ""
+
+# Realm import volume
+extraVolumes: |
+  - name: realm-import
+    configMap:
+      name: keycloak-realm-import
+
+extraVolumeMounts: |
+  - name: realm-import
+    mountPath: /opt/keycloak/data/import
+    readOnly: true
 
 # Disable built-in ingress (access via Teleport only)
 ingress:

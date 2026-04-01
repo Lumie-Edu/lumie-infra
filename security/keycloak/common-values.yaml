@@ -14,6 +14,55 @@ common:
   ingress:
     enabled: false
 
+  # Realm import ConfigMap
+  configMap:
+    enabled: true
+    name: keycloak-realm-import
+    data:
+      infra-realm.json: |
+        {
+          "realm": "infra",
+          "enabled": true,
+          "displayName": "Lumie Infrastructure",
+          "sslRequired": "external",
+          "registrationAllowed": false,
+          "resetPasswordAllowed": true,
+          "bruteForceProtected": true,
+          "failureFactor": 5,
+          "roles": {
+            "realm": [
+              {"name": "admin", "description": "Infrastructure administrator"},
+              {"name": "developer", "description": "Developer access"}
+            ]
+          },
+          "clients": [
+            {
+              "clientId": "outline",
+              "name": "Outline Wiki",
+              "enabled": true,
+              "protocol": "openid-connect",
+              "publicClient": false,
+              "secret": "21285bde638a0a80797839f8be9fa88b5fa76c2ee23c5565",
+              "redirectUris": ["https://outline.lumie-infra.com/auth/oidc.callback"],
+              "webOrigins": ["https://outline.lumie-infra.com"],
+              "standardFlowEnabled": true,
+              "directAccessGrantsEnabled": false,
+              "defaultClientScopes": ["openid", "profile", "email"]
+            }
+          ],
+          "users": [
+            {
+              "username": "bluemayne",
+              "enabled": true,
+              "emailVerified": true,
+              "email": "bluemayne@lumie-edu.com",
+              "firstName": "Bluemayne",
+              "realmRoles": ["admin", "developer"],
+              "credentials": [{"type": "password", "value": "changeme", "temporary": true}]
+            }
+          ]
+        }
+
   # Vault Static Secrets (VSO)
   vaultStaticSecrets:
     # DB credential secret (password for shared infra-db)
