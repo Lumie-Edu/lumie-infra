@@ -1,5 +1,5 @@
 # Keycloak Helm Values (codecentric/keycloakx)
-# Realms: infra (developer SSO), lumie (social login - Google, Kakao)
+# Realms: infra (developer SSO), lumie (prod social login), lumie-dev (dev social login)
 
 # Image - Zot registry (quay:keycloak/** mapped)
 image:
@@ -49,7 +49,7 @@ extraEnv: |
 # External PostgreSQL (shared infra-db cluster)
 database:
   vendor: postgres
-  hostname: lumie-db-rw.lumie-db.svc.cluster.local
+  hostname: infra-db-rw.infra-db.svc.cluster.local
   port: 5432
   database: keycloak
   username: keycloak

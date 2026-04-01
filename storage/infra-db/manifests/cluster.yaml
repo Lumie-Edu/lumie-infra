@@ -18,6 +18,8 @@ spec:
         - "CREATE DATABASE grafana OWNER grafana"
         - "CREATE USER umami WITH PASSWORD 'VAULT_PASSWORD'"
         - "CREATE DATABASE umami OWNER umami"
+        - "CREATE USER keycloak WITH PASSWORD 'VAULT_PASSWORD'"
+        - "CREATE DATABASE keycloak OWNER keycloak"
         - "CREATE USER openclaw WITH PASSWORD 'VAULT_PASSWORD'"
         - "CREATE DATABASE openclaw OWNER openclaw"
 

@@ -139,11 +139,78 @@ common:
               "standardFlowEnabled": true,
               "directAccessGrantsEnabled": false,
               "redirectUris": [
-                "https://lumie-edu.com/api/auth/v1/oauth2/keycloak/callback",
+                "https://lumie-edu.com/api/auth/v1/oauth2/keycloak/callback"
+              ],
+              "webOrigins": [
+                "https://lumie-edu.com"
+              ],
+              "defaultClientScopes": ["openid", "profile", "email"]
+            }
+          ]
+        }
+      lumie-dev-realm.json: |
+        {
+          "realm": "lumie-dev",
+          "enabled": true,
+          "displayName": "Lumie Education (Dev)",
+          "sslRequired": "external",
+          "registrationAllowed": false,
+          "resetPasswordAllowed": true,
+          "bruteForceProtected": true,
+          "failureFactor": 5,
+          "accountTheme": "keycloak.v2",
+          "loginTheme": "keycloak.v2",
+          "identityProviders": [
+            {
+              "alias": "google",
+              "providerId": "google",
+              "enabled": true,
+              "trustEmail": true,
+              "storeToken": false,
+              "linkOnly": false,
+              "firstBrokerLoginFlowAlias": "first broker login",
+              "config": {
+                "clientId": "PLACEHOLDER_GOOGLE_CLIENT_ID",
+                "clientSecret": "PLACEHOLDER_GOOGLE_CLIENT_SECRET",
+                "defaultScope": "openid email profile",
+                "syncMode": "IMPORT"
+              }
+            },
+            {
+              "alias": "kakao",
+              "displayName": "Kakao",
+              "providerId": "oidc",
+              "enabled": true,
+              "trustEmail": false,
+              "storeToken": false,
+              "linkOnly": false,
+              "firstBrokerLoginFlowAlias": "first broker login",
+              "config": {
+                "clientId": "PLACEHOLDER_KAKAO_CLIENT_ID",
+                "clientSecret": "PLACEHOLDER_KAKAO_CLIENT_SECRET",
+                "authorizationUrl": "https://kauth.kakao.com/oauth/authorize",
+                "tokenUrl": "https://kauth.kakao.com/oauth/token",
+                "userInfoUrl": "https://kapi.kakao.com/v2/user/me",
+                "defaultScope": "profile_nickname account_email",
+                "syncMode": "IMPORT",
+                "clientAuthMethod": "client_secret_post"
+              }
+            }
+          ],
+          "clients": [
+            {
+              "clientId": "lumie-app",
+              "name": "Lumie Application (Dev)",
+              "enabled": true,
+              "protocol": "openid-connect",
+              "publicClient": false,
+              "secret": "PLACEHOLDER_LUMIE_APP_DEV_SECRET",
+              "standardFlowEnabled": true,
+              "directAccessGrantsEnabled": false,
+              "redirectUris": [
                 "https://dev.lumie-edu.com/api/auth/v1/oauth2/keycloak/callback"
               ],
               "webOrigins": [
-                "https://lumie-edu.com",
                 "https://dev.lumie-edu.com"
               ],
               "defaultClientScopes": ["openid", "profile", "email"]

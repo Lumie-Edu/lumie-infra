@@ -110,6 +110,18 @@ common:
             access-key: "{{ .Secrets.MINIO_ACCESS_KEY_ID }}"
             secret-key: "{{ .Secrets.MINIO_SECRET_ACCESS_KEY }}"
             endpoint: "{{ .Secrets.MINIO_ENDPOINT }}"
+    # OAuth secrets (for auth-svc)
+    - name: lumie-dev-oauth-vss
+      path: tokens
+      destination:
+        name: lumie-dev-oauth-secrets
+        transformation:
+          templates:
+            GOOGLE_CLIENT_ID: "{{ .Secrets.GOOGLE_CLIENT_ID }}"
+            GOOGLE_CLIENT_SECRET: "{{ .Secrets.GOOGLE_CLIENT_SECRET }}"
+            KAKAO_CLIENT_ID: "{{ .Secrets.KAKAO_CLIENT_ID }}"
+            KAKAO_CLIENT_SECRET: "{{ .Secrets.KAKAO_CLIENT_SECRET }}"
+            KEYCLOAK_LUMIE_CLIENT_SECRET: "{{ .Secrets.KEYCLOAK_LUMIE_CLIENT_SECRET }}"
     # AI API Key
     - name: lumie-dev-ai-token-vss
       path: tokens
