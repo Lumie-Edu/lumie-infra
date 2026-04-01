@@ -9,3 +9,6 @@ helmCharts:
     releaseName: outline
     namespace: outline
     valuesFile: common-values.yaml
+
+resources:
+  - manifests/

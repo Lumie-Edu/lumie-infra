@@ -60,7 +60,7 @@ common:
     - name: FORCE_HTTPS
       value: "false"
     - name: REDIS_URL
-      value: redis://redis-node-0.redis-headless.lumie-cache.svc.cluster.local:6379/1
+      value: redis://outline-redis.outline.svc.cluster.local:6379
     # S3 (MinIO)
     - name: FILE_STORAGE
       value: s3
