@@ -126,6 +126,16 @@ common:
         secretKeyRef:
           name: auth-svc-oauth-secrets
           key: KAKAO_CLIENT_SECRET
+    # OAuth2 - Keycloak (OIDC broker for social login)
+    - name: KEYCLOAK_CLIENT_ID
+      value: "lumie-app"
+    - name: KEYCLOAK_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: auth-svc-oauth-secrets
+          key: KEYCLOAK_LUMIE_CLIENT_SECRET
+    - name: FRONTEND_CALLBACK_URL
+      value: "https://lumie-edu.com/auth/callback"
 
   # Resources (VPA-based)
   resources:
@@ -236,3 +246,4 @@ common:
             GOOGLE_CLIENT_SECRET: "{{ .Secrets.GOOGLE_CLIENT_SECRET }}"
             KAKAO_CLIENT_ID: "{{ .Secrets.KAKAO_CLIENT_ID }}"
             KAKAO_CLIENT_SECRET: "{{ .Secrets.KAKAO_CLIENT_SECRET }}"
+            KEYCLOAK_LUMIE_CLIENT_SECRET: "{{ .Secrets.KEYCLOAK_LUMIE_CLIENT_SECRET }}"
