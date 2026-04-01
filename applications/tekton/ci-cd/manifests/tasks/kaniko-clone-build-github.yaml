@@ -134,7 +134,6 @@ spec:
           --context=$(workspaces.source.path)/$CONTEXT \
           --dockerfile=$(workspaces.source.path)/$CONTEXT/$DOCKERFILE \
           --destination=$IMAGE:$SHORT_SHA \
-          --destination=$IMAGE:latest \
           --digest-file=/tekton/results/IMAGE_DIGEST \
           --skip-tls-verify \
           --cache=false \
