@@ -49,7 +49,7 @@ extraEnv: |
 # External PostgreSQL (shared infra-db cluster)
 database:
   vendor: postgres
-  hostname: infra-db-rw.infra-db.svc.cluster.local
+  hostname: lumie-db-rw.lumie-db.svc.cluster.local
   port: 5432
   database: keycloak
   username: keycloak

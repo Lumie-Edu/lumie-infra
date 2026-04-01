@@ -38,6 +38,10 @@ spec:
       {{- if .Values.common.database.localeCType }}
       localeCType: {{ .Values.common.database.localeCType }}
       {{- end }}
+      {{- if .Values.common.database.postInitSQL }}
+      postInitSQL:
+        {{- toYaml .Values.common.database.postInitSQL | nindent 8 }}
+      {{- end }}
   storage:
     storageClass: {{ .Values.common.database.storage.class | default "local-path" }}
     size: {{ .Values.common.database.storage.size | default "1Gi" }}

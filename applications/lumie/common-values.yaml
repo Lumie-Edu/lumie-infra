@@ -50,6 +50,9 @@ common:
         work_mem: "2MB"
         min_wal_size: "256MB"
         max_wal_size: "2GB"
+    postInitSQL:
+      - "CREATE USER keycloak WITH PASSWORD 'VAULT_PASSWORD'"
+      - "CREATE DATABASE keycloak OWNER keycloak"
     backup:
       enabled: false
       retention: "7d"
