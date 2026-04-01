@@ -22,7 +22,7 @@ spec:
         - name: redis
           image: zot.lumie-infra.com/bitnamilegacy/redis:8.2.1-debian-12-r0
           command: ["redis-server"]
-          args: ["--maxmemory", "32mb", "--maxmemory-policy", "allkeys-lru", "--save", ""]
+          args: ["--maxmemory", "32mb", "--maxmemory-policy", "allkeys-lru", "--save", "", "--protected-mode", "no"]
           ports:
             - containerPort: 6379
           securityContext:
