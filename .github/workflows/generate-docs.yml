@@ -37,6 +37,7 @@ jobs:
               observability) INCLUDE="observability/**/*.yaml,observability/**/*.yml" ;;
               storage)  INCLUDE="storage/**/*.yaml,bootstrap/minio/**/*.yaml" ;;
               platform) INCLUDE="platform/rabbitmq/**/*.yaml,platform/rabbitmq-operator/**/*.yaml,bootstrap/vault/**/*.yaml,platform/priority-classes/**/*.yaml" ;;
+              applications) INCLUDE="applications/outline/**/*.yaml,applications/umami/**/*.yaml,applications/headlamp/**/*.yaml,applications/openclaw/**/*.yaml" ;;
               *) echo "Unknown section: $SECTION"; exit 1 ;;
             esac
             echo "matrix=[{\"section\":\"infra/$SECTION\",\"include\":\"$INCLUDE\"}]" >> "$GITHUB_OUTPUT"
@@ -81,6 +82,9 @@ jobs:
                 ;;
               platform/rabbitmq/*|platform/rabbitmq-operator/*|bootstrap/vault/*|platform/priority-classes/*)
                 add_section "platform" "platform/rabbitmq/**/*.yaml,platform/rabbitmq-operator/**/*.yaml,bootstrap/vault/**/*.yaml,platform/priority-classes/**/*.yaml"
+                ;;
+              applications/outline/*|applications/umami/*|applications/headlamp/*|applications/openclaw/*)
+                add_section "applications" "applications/outline/**/*.yaml,applications/umami/**/*.yaml,applications/headlamp/**/*.yaml,applications/openclaw/**/*.yaml"
                 ;;
               applications/lumie/*)
                 # App manifests don't need docs

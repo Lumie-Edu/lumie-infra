@@ -225,6 +225,14 @@ apps:
       env: prod
       category: applications
 
+  # Knowledge Base (Outline)
+  - name: outline
+    uri: http://outline.outline.svc.cluster.local:3000
+    public_addr: outline.lumie-edu.com
+    labels:
+      env: prod
+      category: applications
+
   # AI Assistant (OpenClaw)
   - name: openclaw
     uri: http://openclaw.openclaw.svc.cluster.local:18789
