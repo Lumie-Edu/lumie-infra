@@ -43,15 +43,39 @@ spec:
                 fi
               done
 
-              # Seed health agent workspace
-              mkdir -p /home/node/.openclaw/workspaces/health
-              mkdir -p /home/node/.openclaw/agents/health/agent
-              mkdir -p /home/node/.openclaw/agents/health/sessions
-              for f in /tmp/openclaw-workspace/health-*; do
-                filename="${f##*/health-}"
-                if [ ! -f "/home/node/.openclaw/workspaces/health/$filename" ]; then
-                  cp "$f" "/home/node/.openclaw/workspaces/health/$filename"
-                  echo "Seeded workspaces/health/$filename"
+              # Seed sales agent workspace
+              mkdir -p /home/node/.openclaw/workspaces/sales
+              mkdir -p /home/node/.openclaw/agents/sales/agent
+              mkdir -p /home/node/.openclaw/agents/sales/sessions
+              for f in /tmp/openclaw-workspace/sales-*; do
+                filename="${f##*/sales-}"
+                if [ ! -f "/home/node/.openclaw/workspaces/sales/$filename" ]; then
+                  cp "$f" "/home/node/.openclaw/workspaces/sales/$filename"
+                  echo "Seeded workspaces/sales/$filename"
+                fi
+              done
+
+              # Seed growth agent workspace
+              mkdir -p /home/node/.openclaw/workspaces/growth
+              mkdir -p /home/node/.openclaw/agents/growth/agent
+              mkdir -p /home/node/.openclaw/agents/growth/sessions
+              for f in /tmp/openclaw-workspace/growth-*; do
+                filename="${f##*/growth-}"
+                if [ ! -f "/home/node/.openclaw/workspaces/growth/$filename" ]; then
+                  cp "$f" "/home/node/.openclaw/workspaces/growth/$filename"
+                  echo "Seeded workspaces/growth/$filename"
+                fi
+              done
+
+              # Seed cs agent workspace
+              mkdir -p /home/node/.openclaw/workspaces/cs
+              mkdir -p /home/node/.openclaw/agents/cs/agent
+              mkdir -p /home/node/.openclaw/agents/cs/sessions
+              for f in /tmp/openclaw-workspace/cs-*; do
+                filename="${f##*/cs-}"
+                if [ ! -f "/home/node/.openclaw/workspaces/cs/$filename" ]; then
+                  cp "$f" "/home/node/.openclaw/workspaces/cs/$filename"
+                  echo "Seeded workspaces/cs/$filename"
                 fi
               done
           securityContext:

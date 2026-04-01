@@ -35,10 +35,24 @@ data:
         "list": [
           { "id": "main" },
           {
-            "id": "health",
-            "name": "health",
-            "workspace": "/home/node/.openclaw/workspaces/health",
-            "agentDir": "/home/node/.openclaw/agents/health/agent",
+            "id": "sales",
+            "name": "sales",
+            "workspace": "/home/node/.openclaw/workspaces/sales",
+            "agentDir": "/home/node/.openclaw/agents/sales/agent",
+            "model": "deepseek/deepseek-chat"
+          },
+          {
+            "id": "growth",
+            "name": "growth",
+            "workspace": "/home/node/.openclaw/workspaces/growth",
+            "agentDir": "/home/node/.openclaw/agents/growth/agent",
+            "model": "deepseek/deepseek-chat"
+          },
+          {
+            "id": "cs",
+            "name": "cs",
+            "workspace": "/home/node/.openclaw/workspaces/cs",
+            "agentDir": "/home/node/.openclaw/agents/cs/agent",
             "model": "deepseek/deepseek-chat"
           }
         ]
@@ -46,7 +60,7 @@ data:
       "tools": {
         "agentToAgent": {
           "enabled": true,
-          "allow": ["main", "health"]
+          "allow": ["main", "sales", "growth", "cs"]
         }
       },
       "models": {
