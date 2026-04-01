@@ -1,5 +1,5 @@
 # Keycloak Helm Values (codecentric/keycloakx)
-# Future: Google, Kakao, Apple social login for Lumie app
+# Realms: infra (developer SSO), lumie (social login - Google, Kakao)
 
 # Image - Zot registry (quay:keycloak/** mapped)
 image:
