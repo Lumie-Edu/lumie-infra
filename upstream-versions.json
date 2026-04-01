@@ -7,6 +7,7 @@
   "ghcr:headlamp-k8s/headlamp": "v0.40.1",
   "ghcr:openclaw/openclaw": "2026.2.23",
   "ghcr:umami-software/umami": "postgresql-latest",
+  "docker:outlinewiki/outline": "0.82.0",
   "_observability": "--- Observability ---",
   "docker:grafana/grafana": "12.3.2",
   "docker:grafana/loki": "3.6.5",

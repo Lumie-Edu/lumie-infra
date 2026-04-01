@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: outline
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Lumie-Edu/lumie-infra.git
+    targetRevision: main
+    path: applications/outline
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: outline
+  ignoreDifferences:
+  - group: ''
+    kind: Secret
+    jsonPointers:
+    - /data
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    managedNamespaceMetadata:
+      labels:
+        goldilocks.fairwinds.com/enabled: 'true'
+        minio-s3: enabled
+    syncOptions:
+    - CreateNamespace=true
+  revisionHistoryLimit: 10

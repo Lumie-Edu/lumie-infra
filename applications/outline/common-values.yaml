@@ -1,0 +1,113 @@
+common:
+  name: outline
+
+  image:
+    registry: zot.lumie-infra.com
+    repository: outlinewiki/outline
+    tag: "0.82.0"
+    pullPolicy: IfNotPresent
+
+  containerPort: 3000
+
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 3000
+
+  ingress:
+    enabled: false
+
+  resources:
+    requests:
+      cpu: 30m
+      memory: 512Mi
+    limits:
+      memory: 512Mi
+
+  healthCheck:
+    enabled: true
+    path: /_health
+    livenessProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    startupProbe:
+      periodSeconds: 10
+      failureThreshold: 30
+
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: URL
+      value: https://outline.lumie-edu.com
+    - name: PORT
+      value: "3000"
+    - name: FORCE_HTTPS
+      value: "false"
+    - name: REDIS_URL
+      value: redis://lumie-cache-redis-node-0.lumie-cache-redis-headless.lumie-cache.svc.cluster.local:6379/1
+    # S3 (MinIO)
+    - name: FILE_STORAGE
+      value: s3
+    - name: AWS_S3_UPLOAD_BUCKET_NAME
+      value: outline
+    - name: AWS_S3_UPLOAD_BUCKET_URL
+      value: https://s3.lumie-infra.com
+    - name: AWS_S3_FORCE_PATH_STYLE
+      value: "true"
+    - name: AWS_S3_ACL
+      value: private
+    - name: AWS_REGION
+      value: us-east-1
+
+  envFrom:
+    - secretRef:
+        name: outline-secrets
+    - secretRef:
+        name: outline-db
+    - secretRef:
+        name: outline-s3
+
+  vaultStaticSecrets:
+    # App-specific secrets (SECRET_KEY, UTILS_SECRET)
+    - name: outline-app-vss
+      path: applications/outline
+      destination:
+        name: outline-secrets
+        transformation:
+          templates:
+            SECRET_KEY: "{{ .Secrets.SECRET_KEY }}"
+            UTILS_SECRET: "{{ .Secrets.UTILS_SECRET }}"
+      rolloutRestartTargets:
+        - kind: Deployment
+          name: outline
+
+    # DB (reuse infrastructure/postgresql)
+    - name: outline-db-vss
+      path: infrastructure/postgresql
+      destination:
+        name: outline-db
+        transformation:
+          templates:
+            DATABASE_URL: "postgresql://outline:{{ .Secrets.POSTGRES_PASSWORD }}@infra-db-rw.infra-db.svc.cluster.local:5432/outline"
+      rolloutRestartTargets:
+        - kind: Deployment
+          name: outline
+
+    # S3 (reuse infrastructure/minio)
+    - name: outline-s3-vss
+      path: infrastructure/minio
+      destination:
+        name: outline-s3
+        transformation:
+          templates:
+            AWS_ACCESS_KEY_ID: "{{ .Secrets.MINIO_ACCESS_KEY_ID }}"
+            AWS_SECRET_ACCESS_KEY: "{{ .Secrets.MINIO_SECRET_ACCESS_KEY }}"
+      rolloutRestartTargets:
+        - kind: Deployment
+          name: outline
+
+  database:
+    enabled: false

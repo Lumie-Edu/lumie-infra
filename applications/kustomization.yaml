@@ -12,6 +12,7 @@ resources:
   - umami/argocd.yaml
   - headlamp/argocd.yaml
   - openclaw/argocd.yaml
+  - outline/argocd.yaml
 
 
   # Tekton CI/CD
