@@ -7,6 +7,19 @@ common:
     tag: "0.82.0"
     pullPolicy: IfNotPresent
 
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    runAsGroup: 1001
+    fsGroup: 1001
+
+  securityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+
   containerPort: 3000
 
   service:

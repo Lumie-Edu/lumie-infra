@@ -206,7 +206,8 @@ configMaps:
                     {"prefix": "kiwigrid/**"},
                     {"prefix": "minio/**"},
                     {"prefix": "otwld/**"},
-                    {"prefix": "bitnamilegacy/**"}
+                    {"prefix": "bitnamilegacy/**"},
+                    {"prefix": "outlinewiki/**"}
                   ]
                 },
                 {
