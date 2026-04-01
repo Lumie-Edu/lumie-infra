@@ -10,9 +10,26 @@ common:
   service:
     enabled: false
 
-  # Ingress disabled - access via Teleport only
+  # Main UI via Teleport only
   ingress:
     enabled: false
+
+  # External ingress for OIDC (browsers need direct access)
+  additionalIngresses:
+    - name: auth
+      serviceName: keycloak-keycloakx-http
+      servicePort: 80
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: auth.lumie-edu.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: auth-keycloak-tls
+          hosts:
+            - auth.lumie-edu.com
 
   # Realm import ConfigMap
   configMap:

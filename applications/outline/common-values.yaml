@@ -78,13 +78,13 @@ common:
     - name: OIDC_CLIENT_ID
       value: outline
     - name: OIDC_AUTH_URI
-      value: http://keycloak-keycloakx-http.keycloak.svc.cluster.local/realms/infra/protocol/openid-connect/auth
+      value: https://auth.lumie-edu.com/realms/infra/protocol/openid-connect/auth
     - name: OIDC_TOKEN_URI
       value: http://keycloak-keycloakx-http.keycloak.svc.cluster.local/realms/infra/protocol/openid-connect/token
     - name: OIDC_USERINFO_URI
       value: http://keycloak-keycloakx-http.keycloak.svc.cluster.local/realms/infra/protocol/openid-connect/userinfo
     - name: OIDC_LOGOUT_URI
-      value: http://keycloak-keycloakx-http.keycloak.svc.cluster.local/realms/infra/protocol/openid-connect/logout
+      value: https://auth.lumie-edu.com/realms/infra/protocol/openid-connect/logout
     - name: OIDC_DISPLAY_NAME
       value: Lumie
     - name: OIDC_SCOPES
