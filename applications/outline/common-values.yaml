@@ -54,7 +54,7 @@ common:
     - name: NODE_ENV
       value: production
     - name: URL
-      value: https://outline.lumie-edu.com
+      value: https://outline.lumie-infra.com
     - name: PORT
       value: "3000"
     - name: FORCE_HTTPS

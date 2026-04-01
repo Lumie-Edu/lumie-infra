@@ -228,7 +228,6 @@ apps:
   # Knowledge Base (Outline)
   - name: outline
     uri: http://outline.outline.svc.cluster.local:3000
-    public_addr: outline.lumie-edu.com
     labels:
       env: prod
       category: applications
