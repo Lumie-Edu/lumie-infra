@@ -38,22 +38,32 @@ server:
   # Extra args to use config from secret
   extraArgs: "-config=/vault/userconfig/extraconfig-from-values.hcl"
 
-  # Readiness probe - increase timeout to prevent false failures
+  # Readiness/Liveness - use HTTP health endpoint instead of vault status CLI
+  # vault status CLI is slow due to S3 backend latency
   readinessProbe:
     enabled: true
+    path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
     failureThreshold: 2
-    timeoutSeconds: 10
+    timeoutSeconds: 5
+  livenessProbe:
+    enabled: true
+    path: "/v1/sys/health?standbyok=true"
+    initialDelaySeconds: 60
+    periodSeconds: 15
+    successThreshold: 1
+    failureThreshold: 3
+    timeoutSeconds: 5
 
   # Resource settings (VPA recommended, no CPU limit for stability)
   resources:
     requests:
       cpu: 49m
-      memory: 156Mi
+      memory: 256Mi
     limits:
-      memory: 156Mi
+      memory: 256Mi
 
   # Ingress disabled - access via Teleport (teleport0213.kro.kr)
   ingress:
