@@ -38,6 +38,15 @@ server:
   # Extra args to use config from secret
   extraArgs: "-config=/vault/userconfig/extraconfig-from-values.hcl"
 
+  # Readiness probe - increase timeout to prevent false failures
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 2
+    timeoutSeconds: 10
+
   # Resource settings (VPA recommended, no CPU limit for stability)
   resources:
     requests:
