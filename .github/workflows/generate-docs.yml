@@ -32,7 +32,7 @@ jobs:
             case "$SECTION" in
               cluster)  INCLUDE="provision/**/*.yaml,provision/**/*.yml,provision/**/*.tf,provision/**/*.cfg" ;;
               gitops)   INCLUDE="applications/argocd/**/*.yaml,applications/tekton/**/*.yaml,bootstrap/zot/**/*.yaml,.github/**/*.yml" ;;
-              networking) INCLUDE="bootstrap/kong/**/*.yaml,platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml" ;;
+              networking) INCLUDE="platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml" ;;
               security) INCLUDE="security/**/*.yaml" ;;
               observability) INCLUDE="observability/**/*.yaml,observability/**/*.yml" ;;
               storage)  INCLUDE="storage/**/*.yaml,bootstrap/minio/**/*.yaml" ;;
@@ -68,8 +68,8 @@ jobs:
               applications/argocd/*|applications/tekton/*|bootstrap/zot/*)
                 add_section "gitops" "applications/argocd/**/*.yaml,applications/tekton/**/*.yaml,bootstrap/zot/**/*.yaml"
                 ;;
-              bootstrap/kong/*|platform/cert-manager/*|platform/coredns-config/*)
-                add_section "networking" "bootstrap/kong/**/*.yaml,platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml"
+              platform/cert-manager/*|platform/coredns-config/*)
+                add_section "networking" "platform/cert-manager/**/*.yaml,platform/coredns-config/**/*.yaml"
                 ;;
               security/*)
                 add_section "security" "security/**/*.yaml"
