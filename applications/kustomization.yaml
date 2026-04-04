@@ -25,22 +25,13 @@ resources:
   - lumie/argocd.yaml
   - lumie/develop/argocd.yaml
 
-  # LUMIE Backend
-  - lumie/backend/tenant-svc/argocd.yaml
-  - lumie/backend/auth-svc/argocd.yaml
-  - lumie/backend/billing-svc/argocd.yaml
-  - lumie/backend/academy-svc/argocd.yaml
-  - lumie/backend/exam-svc/argocd.yaml
-  - lumie/backend/content-svc/argocd.yaml
-  - lumie/backend/file-svc/argocd.yaml
-  - lumie/backend/admin-svc/argocd.yaml
-  - lumie/backend/attendance-svc/argocd.yaml
+  # LUMIE Backend (unified monolith)
+  - lumie/backend/lumie-backend/argocd.yaml
 
   # LUMIE Frontend
   - lumie/frontend/argocd.yaml
 
-  # LUMIE AI
-  - lumie/ai/ai-svc/argocd.yaml
+  # LUMIE AI (ai-svc is now part of lumie-backend monolith)
   - lumie/ai/analysis-svc/argocd.yaml
   - lumie/ai/grading-svc/argocd.yaml
   - lumie/ai/report-svc/argocd.yaml

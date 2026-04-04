@@ -1,0 +1,341 @@
+# lumie-backend unified monolith chart values
+
+common:
+  name: lumie-backend
+  namespace: lumie-backend
+
+  deployment:
+    enabled: true
+
+  replicaCount: 3
+
+  image:
+    registry: zot.lumie-infra.com
+    repository: applications/lumie-backend
+    tag: "f8b45cb0"
+    pullPolicy: IfNotPresent
+
+  ports:
+    - name: http
+      containerPort: 8080
+      protocol: TCP
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+
+  securityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    capabilities:
+      drop:
+        - ALL
+
+  env:
+    # Spring
+    - name: SPRING_PROFILES_ACTIVE
+      value: "prod"
+
+    # Database (primary RW)
+    - name: DB_HOST
+      value: "lumie-db-rw.lumie-db.svc"
+    - name: DB_PORT
+      value: "5432"
+    - name: DB_NAME
+      value: "lumie"
+    - name: DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-db-secrets
+          key: username
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-db-secrets
+          key: password
+
+    # Database (read-only, for ai module)
+    - name: RO_DB_HOST
+      value: "lumie-db-ro.lumie-db.svc"
+    - name: RO_DB_PORT
+      value: "5432"
+    - name: RO_DB_NAME
+      value: "lumie"
+    - name: RO_DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-ro-db-secrets
+          key: username
+    - name: RO_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-ro-db-secrets
+          key: password
+
+    # Redis Sentinel (auth module)
+    - name: REDIS_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-redis-secrets
+          key: REDIS_PASSWORD
+    - name: REDIS_SENTINEL_MASTER
+      value: "mymaster"
+    - name: REDIS_SENTINEL_NODES
+      value: "redis.lumie-cache.svc:26379"
+
+    # RabbitMQ
+    - name: RABBITMQ_HOST
+      value: "rabbitmq.lumie-event.svc"
+    - name: RABBITMQ_PORT
+      value: "5672"
+    - name: RABBITMQ_USERNAME
+      value: "lumie"
+    - name: RABBITMQ_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-rabbitmq-secrets
+          key: RABBITMQ_PASSWORD
+
+    # JWT (auth module)
+    - name: JWT_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-jwt-secrets
+          key: JWT_SECRET_KEY
+    - name: JWT_ACCESS_EXPIRATION
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-jwt-secrets
+          key: JWT_ACCESS_EXPIRATION
+    - name: JWT_REFRESH_EXPIRATION
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-jwt-secrets
+          key: JWT_REFRESH_EXPIRATION
+
+    # OAuth2 (auth module)
+    - name: GOOGLE_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-oauth-secrets
+          key: GOOGLE_CLIENT_ID
+    - name: GOOGLE_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-oauth-secrets
+          key: GOOGLE_CLIENT_SECRET
+    - name: KAKAO_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-oauth-secrets
+          key: KAKAO_CLIENT_ID
+    - name: KAKAO_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-oauth-secrets
+          key: KAKAO_CLIENT_SECRET
+    - name: KEYCLOAK_CLIENT_ID
+      value: "lumie-app"
+    - name: KEYCLOAK_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-oauth-secrets
+          key: KEYCLOAK_LUMIE_CLIENT_SECRET
+    - name: FRONTEND_CALLBACK_URL
+      value: "https://lumie-edu.com/auth/callback"
+
+    # MinIO (exam + file modules)
+    - name: MINIO_ENDPOINT
+      value: "http://minio.minio.svc:9000"
+    - name: MINIO_EXTERNAL_ENDPOINT
+      value: "https://lumie-edu.com"
+    - name: MINIO_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-minio-secrets
+          key: accessKey
+    - name: MINIO_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-minio-secrets
+          key: secretKey
+    - name: MINIO_BUCKET_NAME
+      value: "lumie"
+
+    # External Python services (exam module)
+    - name: GRADING_SVC_URL
+      value: "http://grading-svc.lumie-grading.svc:8000"
+    - name: REPORT_SVC_URL
+      value: "http://report-svc.lumie-report.svc:8000"
+
+    # DeepSeek API (ai module)
+    - name: DEEPSEEK_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: lumie-backend-ai-secrets
+          key: DEEPSEEK_API_KEY
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 2Gi
+    limits:
+      memory: 2Gi
+
+  healthCheck:
+    enabled: true
+    port: http
+    livenessProbe:
+      path: /actuator/health/liveness
+      initialDelaySeconds: 90
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    readinessProbe:
+      path: /actuator/health/readiness
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    startupProbe:
+      path: /actuator/health
+      periodSeconds: 5
+      failureThreshold: 60
+
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 8080
+    ports:
+      - name: http
+        port: 8080
+        targetPort: http
+        protocol: TCP
+
+  ingress:
+    enabled: true
+    className: kong
+    annotations:
+      konghq.com/strip-path: "true"
+      konghq.com/plugins: lumie-cors,lumie-jwt,lumie-jwt-claims
+    hosts:
+      - host: lumie-edu.com
+        paths:
+          - path: /api/tenant
+            pathType: Prefix
+          - path: /api/academy
+            pathType: Prefix
+          - path: /api/admin
+            pathType: Prefix
+          - path: /api/exam
+            pathType: Prefix
+          - path: /api/content
+            pathType: Prefix
+          - path: /api/attendance
+            pathType: Prefix
+          - path: /api/billing
+            pathType: Prefix
+          - path: /api/file
+            pathType: Prefix
+          - path: /api/ai
+            pathType: Prefix
+    tls: []
+
+  # Auth endpoints need separate ingress without JWT plugin
+  additionalIngresses:
+    - name: lumie-backend-auth
+      className: kong
+      annotations:
+        konghq.com/strip-path: "true"
+        konghq.com/plugins: lumie-cors
+      hosts:
+        - host: lumie-edu.com
+          paths:
+            - path: /api/auth
+              pathType: Prefix
+
+  serviceMonitor:
+    enabled: true
+    endpoints:
+      - port: http
+        interval: 30s
+        path: /actuator/prometheus
+
+  vaultStaticSecrets:
+    # Database credentials (RW)
+    - name: lumie-backend-db-vss
+      path: infrastructure/postgresql
+      destination:
+        name: lumie-backend-db-secrets
+        transformation:
+          templates:
+            username: "{{ .Secrets.POSTGRES_USER }}"
+            password: "{{ .Secrets.POSTGRES_PASSWORD }}"
+    # Database credentials (RO)
+    - name: lumie-backend-ro-db-vss
+      path: applications/ai-svc
+      destination:
+        name: lumie-backend-ro-db-secrets
+        transformation:
+          templates:
+            username: "{{ .Secrets.LUMIE_AGENT_USERNAME }}"
+            password: "{{ .Secrets.LUMIE_AGENT_PASSWORD }}"
+    # Redis credentials
+    - name: lumie-backend-redis-vss
+      path: infrastructure/redis
+      destination:
+        name: lumie-backend-redis-secrets
+        transformation:
+          templates:
+            REDIS_PASSWORD: "{{ .Secrets.REDIS_PASSWORD }}"
+    # RabbitMQ credentials
+    - name: lumie-backend-rabbitmq-vss
+      path: infrastructure/rabbitmq
+      destination:
+        name: lumie-backend-rabbitmq-secrets
+        transformation:
+          templates:
+            RABBITMQ_PASSWORD: "{{ .Secrets.RABBITMQ_PASSWORD }}"
+    # JWT secrets
+    - name: lumie-backend-jwt-vss
+      path: security/jwt
+      destination:
+        name: lumie-backend-jwt-secrets
+        transformation:
+          templates:
+            JWT_SECRET_KEY: "{{ .Secrets.JWT_SECRET_KEY }}"
+            JWT_ACCESS_EXPIRATION: "{{ .Secrets.JWT_ACCESS_EXPIRATION }}"
+            JWT_REFRESH_EXPIRATION: "{{ .Secrets.JWT_REFRESH_EXPIRATION }}"
+    # OAuth secrets
+    - name: lumie-backend-oauth-vss
+      path: tokens
+      destination:
+        name: lumie-backend-oauth-secrets
+        transformation:
+          templates:
+            GOOGLE_CLIENT_ID: "{{ .Secrets.GOOGLE_CLIENT_ID }}"
+            GOOGLE_CLIENT_SECRET: "{{ .Secrets.GOOGLE_CLIENT_SECRET }}"
+            KAKAO_CLIENT_ID: "{{ .Secrets.KAKAO_CLIENT_ID }}"
+            KAKAO_CLIENT_SECRET: "{{ .Secrets.KAKAO_CLIENT_SECRET }}"
+            KEYCLOAK_LUMIE_CLIENT_SECRET: "{{ .Secrets.KEYCLOAK_LUMIE_CLIENT_SECRET }}"
+    # MinIO credentials
+    - name: lumie-backend-minio-vss
+      path: infrastructure/minio
+      destination:
+        name: lumie-backend-minio-secrets
+        transformation:
+          templates:
+            endpoint: "{{ .Secrets.MINIO_ENDPOINT }}"
+            accessKey: "{{ .Secrets.MINIO_ACCESS_KEY_ID }}"
+            secretKey: "{{ .Secrets.MINIO_SECRET_ACCESS_KEY }}"
+    # DeepSeek API
+    - name: lumie-backend-ai-vss
+      path: tokens
+      destination:
+        name: lumie-backend-ai-secrets
+        transformation:
+          templates:
+            DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"

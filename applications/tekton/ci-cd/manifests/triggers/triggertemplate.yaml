@@ -218,7 +218,7 @@ spec:
           - name: update-values
             value: "true"
           - name: values-file-path
-            value: applications/lumie/backend/common-values.yaml
+            value: applications/lumie/backend/lumie-backend/common-values.yaml
         workspaces:
           - name: shared-workspace
             emptyDir: {}
