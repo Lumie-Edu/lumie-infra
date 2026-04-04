@@ -12,7 +12,7 @@ common:
   image:
     registry: zot.lumie-infra.com
     repository: applications/lumie-backend
-    tag: "f8b45cb0"
+    tag: "941aadcb"
     pullPolicy: IfNotPresent
 
   ports:
