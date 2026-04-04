@@ -24,6 +24,16 @@ spec:
                 name: minio
                 port:
                   number: 9000
+    - host: dev.lumie-edu.com
+      http:
+        paths:
+          - path: /lumie-dev/omr/tmp/
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9000
 ---
 # Restrict MinIO upload proxy to PUT and OPTIONS (CORS preflight) only
 apiVersion: configuration.konghq.com/v1
