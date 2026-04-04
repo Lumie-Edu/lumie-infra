@@ -220,6 +220,7 @@ common:
     className: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.middlewares: lumie-backend-strip-api-prefix@kubernetescrd
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - host: lumie-edu.com
         paths:
@@ -241,7 +242,10 @@ common:
             pathType: Prefix
           - path: /api/ai
             pathType: Prefix
-    tls: []
+    tls:
+      - hosts:
+          - lumie-edu.com
+        secretName: lumie-backend-tls
 
   # Auth endpoints need separate ingress without JWT plugin
   additionalIngresses:
