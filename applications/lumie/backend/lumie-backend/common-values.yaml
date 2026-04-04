@@ -248,6 +248,7 @@ common:
   additionalIngresses:
     - name: lumie-backend-auth
       className: kong
+      servicePort: 8080
       annotations:
         konghq.com/strip-path: "true"
         konghq.com/plugins: lumie-cors
