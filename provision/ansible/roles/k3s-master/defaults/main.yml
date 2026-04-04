@@ -11,5 +11,4 @@ k3s_service_cidr: "10.43.0.0/16"
 
 # Default server arguments
 k3s_server_args:
-  - "--disable traefik"
   - "--write-kubeconfig-mode 644"

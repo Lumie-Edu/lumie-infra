@@ -9,3 +9,6 @@ helmCharts:
     releaseName: lumie-backend
     namespace: lumie-backend
     valuesFile: common-values.yaml
+
+resources:
+  - manifests/strip-prefix.yaml

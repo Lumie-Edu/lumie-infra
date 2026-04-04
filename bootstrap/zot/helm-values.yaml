@@ -70,12 +70,9 @@ service:
 
 ingress:
   zot:
-    className: kong
+    className: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      konghq.com/read-timeout: "300000"
-      konghq.com/write-timeout: "300000"
-      konghq.com/connect-timeout: "60000"
     hosts:
     - host: zot.lumie-infra.com
       paths:

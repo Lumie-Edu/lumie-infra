@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-api-prefix
+  namespace: lumie-backend
+spec:
+  stripPrefix:
+    prefixes:
+      - /api/tenant
+      - /api/auth
+      - /api/academy
+      - /api/admin
+      - /api/exam
+      - /api/content
+      - /api/attendance
+      - /api/billing
+      - /api/file
+      - /api/ai

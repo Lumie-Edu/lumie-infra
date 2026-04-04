@@ -5,7 +5,6 @@ k3s_role: server
 
 # K3s server installation options (matches current server configuration)
 k3s_server_args:
-  - "--disable traefik"
   - "--write-kubeconfig-mode 644"
   - "--tls-san {{ ansible_host }}"      # Public IP
   - "--tls-san {{ private_ip }}"        # Private IP

@@ -116,10 +116,8 @@ common:
 
   ingress:
     enabled: true
-    className: kong
-    annotations:
-      konghq.com/strip-path: "true"
-      konghq.com/plugins: lumie-cors,lumie-jwt,lumie-jwt-claims
+    className: traefik
+    annotations: {}
     hosts:
       - host: lumie-edu.com
         paths:

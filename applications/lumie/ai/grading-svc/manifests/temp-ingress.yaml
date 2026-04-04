@@ -3,14 +3,9 @@ kind: Ingress
 metadata:
   name: grading-svc-temp-ingress
   namespace: lumie-grading
-  annotations:
-    konghq.com/strip-path: "true"
-    konghq.com/plugins: lumie-cors
-    konghq.com/read-timeout: "300000"
-    konghq.com/write-timeout: "300000"
-    konghq.com/connect-timeout: "60000"
+  annotations: {}
 spec:
-  ingressClassName: kong
+  ingressClassName: traefik
   rules:
     - host: lumie-edu.com
       http:

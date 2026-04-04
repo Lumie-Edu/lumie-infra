@@ -22,10 +22,9 @@ kind: Ingress
 metadata:
   name: lumie-frontend-www-redirect
   namespace: lumie-frontend
-  annotations:
-    konghq.com/plugins: www-redirect
+  annotations: {}
 spec:
-  ingressClassName: kong
+  ingressClassName: traefik
   tls:
     - hosts:
         - www.lumie-edu.com

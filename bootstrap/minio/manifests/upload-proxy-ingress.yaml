@@ -7,12 +7,9 @@ kind: Ingress
 metadata:
   name: minio-upload-proxy
   namespace: minio
-  annotations:
-    konghq.com/plugins: lumie-cors,minio-upload-method-restriction
-    konghq.com/preserve-host: "true"
-    konghq.com/strip-path: "false"
+  annotations: {}
 spec:
-  ingressClassName: kong
+  ingressClassName: traefik
   rules:
     - host: lumie-edu.com
       http:

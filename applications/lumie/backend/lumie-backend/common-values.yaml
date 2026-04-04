@@ -217,10 +217,9 @@ common:
 
   ingress:
     enabled: true
-    className: kong
+    className: traefik
     annotations:
-      konghq.com/strip-path: "true"
-      konghq.com/plugins: lumie-cors,lumie-jwt,lumie-jwt-claims
+      traefik.ingress.kubernetes.io/router.middlewares: lumie-backend-strip-api-prefix@kubernetescrd
     hosts:
       - host: lumie-edu.com
         paths:
@@ -247,11 +246,10 @@ common:
   # Auth endpoints need separate ingress without JWT plugin
   additionalIngresses:
     - name: lumie-backend-auth
-      className: kong
+      className: traefik
       servicePort: 8080
       annotations:
-        konghq.com/strip-path: "true"
-        konghq.com/plugins: lumie-cors
+        traefik.ingress.kubernetes.io/router.middlewares: lumie-backend-strip-api-prefix@kubernetescrd
       hosts:
         - host: lumie-edu.com
           paths:

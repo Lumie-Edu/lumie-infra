@@ -7,10 +7,9 @@ metadata:
   namespace: lumie-dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    konghq.com/strip-path: "true"
-    konghq.com/plugins: lumie-cors
+    traefik.ingress.kubernetes.io/router.middlewares: lumie-dev-strip-api-prefix@kubernetescrd
 spec:
-  ingressClassName: kong
+  ingressClassName: traefik
   tls:
     - hosts:
         - dev.lumie-edu.com
@@ -37,10 +36,9 @@ metadata:
   namespace: lumie-dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    konghq.com/strip-path: "true"
-    konghq.com/plugins: lumie-cors,lumie-jwt,lumie-jwt-claims
+    traefik.ingress.kubernetes.io/router.middlewares: lumie-dev-strip-api-prefix@kubernetescrd
 spec:
-  ingressClassName: kong
+  ingressClassName: traefik
   tls:
     - hosts:
         - dev.lumie-edu.com

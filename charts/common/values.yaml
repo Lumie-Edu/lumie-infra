@@ -67,7 +67,7 @@ common:
   # Ingress configuration
   ingress:
     enabled: true
-    className: kong
+    className: traefik
     annotations: {}
     hosts:
       - host: app.example.com
@@ -204,7 +204,7 @@ common:
   # - name: health
   #   annotations:
   #     cert-manager.io/cluster-issuer: letsencrypt-prod
-  #   className: kong
+  #   className: traefik
   #   hosts:
   #     - host: app-health.example.com
   #       paths:

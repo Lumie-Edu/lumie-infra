@@ -14,14 +14,10 @@ common:
     enabled: true
     type: ClusterIP
     port: 80
-    annotations:
-      # AI 생성 요청은 시간이 걸릴 수 있음 (Service에 적용해야 Kong이 인식)
-      konghq.com/read-timeout: "120000"
-      konghq.com/write-timeout: "120000"
-      konghq.com/connect-timeout: "10000"
+    annotations: {}
   ingress:
     enabled: true
-    className: kong
+    className: traefik
     hosts:
       - host: lumie-edu.com
         paths:

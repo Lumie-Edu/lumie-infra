@@ -5,9 +5,8 @@ metadata:
   namespace: lumie-frontend
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    konghq.com/plugins: lumie-cors
 spec:
-  ingressClassName: kong
+  ingressClassName: traefik
   tls:
     - hosts:
         - lumie-edu.com
