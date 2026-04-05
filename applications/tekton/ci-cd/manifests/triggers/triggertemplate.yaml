@@ -281,7 +281,7 @@ spec:
             secret:
               secretName: zot-registry-credentials
 ---
-# Lumie AI TriggerTemplates
+# Lumie Worker TriggerTemplates
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
@@ -329,7 +329,7 @@ spec:
           - name: update-values
             value: "true"
           - name: values-file-path
-            value: applications/lumie/ai/grading-svc/common-values.yaml
+            value: applications/lumie/worker/grading-svc/common-values.yaml
         workspaces:
           - name: shared-workspace
             emptyDir: {}
@@ -384,7 +384,7 @@ spec:
           - name: update-values
             value: "true"
           - name: values-file-path
-            value: applications/lumie/ai/report-svc/common-values.yaml
+            value: applications/lumie/worker/report-svc/common-values.yaml
         workspaces:
           - name: shared-workspace
             emptyDir: {}
@@ -492,7 +492,7 @@ spec:
           - name: update-values
             value: "true"
           - name: values-file-path
-            value: applications/lumie/ai/analysis-svc/helm-values.yaml
+            value: applications/lumie/worker/analysis-svc/helm-values.yaml
         workspaces:
           - name: shared-workspace
             emptyDir: {}

@@ -31,7 +31,7 @@ resources:
   # LUMIE Frontend
   - lumie/frontend/argocd.yaml
 
-  # LUMIE AI (ai-svc is now part of lumie-backend monolith)
-  - lumie/ai/analysis-svc/argocd.yaml
-  - lumie/ai/grading-svc/argocd.yaml
-  - lumie/ai/report-svc/argocd.yaml
+  # LUMIE Worker (ai-svc is now part of lumie-backend monolith)
+  - lumie/worker/analysis-svc/argocd.yaml
+  - lumie/worker/grading-svc/argocd.yaml
+  - lumie/worker/report-svc/argocd.yaml

@@ -184,7 +184,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.repository.name in ['lumie-ai'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/grading/')) || c.modified.exists(f, f.startsWith('services/grading/')))"
+              value: "body.repository.name in ['lumie-worker'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/grading/')) || c.modified.exists(f, f.startsWith('services/grading/')))"
       bindings:
         - ref: github-push-binding
       template:
@@ -213,7 +213,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.repository.name in ['lumie-ai'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/report/')) || c.modified.exists(f, f.startsWith('services/report/')))"
+              value: "body.repository.name in ['lumie-worker'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/report/')) || c.modified.exists(f, f.startsWith('services/report/')))"
       bindings:
         - ref: github-push-binding
       template:
@@ -242,7 +242,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.repository.name in ['lumie-ai'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/audio/')) || c.modified.exists(f, f.startsWith('services/audio/')))"
+              value: "body.repository.name in ['lumie-worker'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/audio/')) || c.modified.exists(f, f.startsWith('services/audio/')))"
       bindings:
         - ref: github-push-binding
       template:
@@ -271,7 +271,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.repository.name in ['lumie-ai'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/analysis/')) || c.modified.exists(f, f.startsWith('services/analysis/')))"
+              value: "body.repository.name in ['lumie-worker'] && body.commits.exists(c, c.added.exists(f, f.startsWith('services/analysis/')) || c.modified.exists(f, f.startsWith('services/analysis/')))"
       bindings:
         - ref: github-push-binding
       template:
