@@ -135,3 +135,29 @@ spec:
                 name: lumie-backend
                 port:
                   number: 8080
+---
+# Lumie Dev - Frontend
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lumie-dev-frontend
+  namespace: lumie-dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - dev.lumie-edu.com
+      secretName: lumie-dev-tls
+  rules:
+    - host: dev.lumie-edu.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lumie-frontend
+                port:
+                  number: 3000
