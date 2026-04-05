@@ -1,0 +1,41 @@
+# PgBouncer shared configuration
+# Environment-specific values in overlays/
+
+replicaCount: 1
+
+image:
+  registry: zot.lumie-infra.com
+  repository: icoretech/pgbouncer-docker
+  tag: "1.25.1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5432
+
+config:
+  pgbouncer:
+    pool_mode: session
+    max_client_conn: 100
+    default_pool_size: 20
+    min_pool_size: 5
+    reserve_pool_size: 5
+    auth_type: scram-sha-256
+    ignore_startup_parameters: extra_float_digits
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 64Mi
+  limits:
+    memory: 64Mi
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 70
+  runAsGroup: 70

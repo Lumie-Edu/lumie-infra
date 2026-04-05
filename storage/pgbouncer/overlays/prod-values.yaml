@@ -1,0 +1,11 @@
+# PgBouncer prod overlay
+config:
+  existingAdminSecret: pgbouncer-db-secrets
+  adminUserKey: username
+  adminPasswordKey: password
+  existingUserlistSecret: pgbouncer-userlist
+  databases:
+    lumie:
+      host: lumie-db-rw.lumie-db.svc.cluster.local
+      port: 5432
+      dbname: lumie

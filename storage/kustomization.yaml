@@ -16,6 +16,7 @@ resources:
 
   # Connection pooling for multi-tenancy
   - pgbouncer/argocd.yaml
+  - pgbouncer/argocd-prod.yaml
 
   # Shared infrastructure database (Teleport, etc.)
   - infra-db/argocd.yaml

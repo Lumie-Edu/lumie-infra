@@ -41,7 +41,7 @@ common:
 
     # Database (primary RW)
     - name: DB_HOST
-      value: "lumie-db-rw.lumie-db.svc"
+      value: "pgbouncer.lumie-backend.svc"
     - name: DB_PORT
       value: "5432"
     - name: DB_NAME
@@ -342,3 +342,20 @@ common:
         transformation:
           templates:
             DEEPSEEK_API_KEY: "{{ .Secrets.DEEPSEEK_API_KEY }}"
+    # PgBouncer credentials
+    - name: pgbouncer-db-vss
+      path: infrastructure/postgresql
+      destination:
+        name: pgbouncer-db-secrets
+        transformation:
+          templates:
+            username: "{{ .Secrets.POSTGRES_USER }}"
+            password: "{{ .Secrets.POSTGRES_PASSWORD }}"
+    # PgBouncer userlist
+    - name: pgbouncer-userlist-vss
+      path: infrastructure/postgresql
+      destination:
+        name: pgbouncer-userlist
+        transformation:
+          templates:
+            userlist.txt: '"{{ .Secrets.POSTGRES_USER }}" "{{ .Secrets.POSTGRES_PASSWORD }}"'
