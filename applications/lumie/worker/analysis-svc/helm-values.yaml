@@ -10,6 +10,20 @@ common:
     pullPolicy: Always
   replicaCount: 1
   containerPort: 8000
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    runAsGroup: 1001
+    fsGroup: 1001
+
+  securityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    capabilities:
+      drop:
+        - ALL
   service:
     enabled: true
     type: ClusterIP
