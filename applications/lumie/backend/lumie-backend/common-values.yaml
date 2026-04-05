@@ -81,9 +81,9 @@ common:
         secretKeyRef:
           name: lumie-backend-redis-secrets
           key: REDIS_PASSWORD
-    - name: REDIS_SENTINEL_MASTER
+    - name: SPRING_DATA_REDIS_SENTINEL_MASTER
       value: "mymaster"
-    - name: REDIS_SENTINEL_NODES
+    - name: SPRING_DATA_REDIS_SENTINEL_NODES
       value: "redis.lumie-cache.svc:26379"
 
     # RabbitMQ
