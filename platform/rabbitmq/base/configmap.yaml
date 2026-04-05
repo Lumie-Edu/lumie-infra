@@ -1,11 +1,7 @@
-# RabbitMQ Definitions (exchanges, queues, bindings)
-# Can be loaded via management plugin or Messaging Topology Operator
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rabbitmq-definitions
-  namespace: lumie-event
 data:
   definitions.json: |
     {

@@ -1,18 +1,10 @@
-# RabbitmqCluster CR for LUMIE Event Bus
-# Managed by RabbitMQ Cluster Operator
----
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: rabbitmq
-  namespace: lumie-event
 spec:
-  replicas: 3
+  replicas: 1
   image: zot.lumie-infra.com/library/rabbitmq:4.1-management
-
-  persistence:
-    storageClassName: local-path-retain
-    storage: 2Gi
 
   resources:
     requests:
@@ -39,13 +31,6 @@ spec:
       spec:
         template:
           spec:
-            affinity:
-              podAntiAffinity:
-                requiredDuringSchedulingIgnoredDuringExecution:
-                  - labelSelector:
-                      matchLabels:
-                        app.kubernetes.io/name: rabbitmq
-                    topologyKey: kubernetes.io/hostname
             volumes:
               - name: definitions
                 configMap:

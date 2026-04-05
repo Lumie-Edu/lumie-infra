@@ -1,5 +1,25 @@
+# Lumie Dev - Strip API prefix middleware
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-api-prefix
+  namespace: lumie-dev
+spec:
+  stripPrefix:
+    prefixes:
+      - /api/tenant
+      - /api/auth
+      - /api/academy
+      - /api/admin
+      - /api/exam
+      - /api/content
+      - /api/attendance
+      - /api/billing
+      - /api/file
+      - /api/ai
+      - /api/grading
+---
 # Lumie Dev - Public API Routes (No JWT required)
-# Auth service handles its own path-based authorization
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -18,17 +38,15 @@ spec:
     - host: dev.lumie-edu.com
       http:
         paths:
-          # Auth service (public endpoints handled by backend security config)
           - path: /api/auth
             pathType: Prefix
             backend:
               service:
-                name: auth-svc
+                name: lumie-backend
                 port:
                   number: 8080
 ---
 # Lumie Dev - Protected API Routes (JWT required)
-# All other endpoints require valid JWT token
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -47,55 +65,48 @@ spec:
     - host: dev.lumie-edu.com
       http:
         paths:
-          # Tenant service
           - path: /api/tenant
             pathType: Prefix
             backend:
               service:
-                name: tenant-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # Academy service
           - path: /api/academy
             pathType: Prefix
             backend:
               service:
-                name: academy-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # Billing service
           - path: /api/billing
             pathType: Prefix
             backend:
               service:
-                name: billing-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # Exam service
           - path: /api/exam
             pathType: Prefix
             backend:
               service:
-                name: exam-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # Content service
           - path: /api/content
             pathType: Prefix
             backend:
               service:
-                name: content-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # File service
           - path: /api/file
             pathType: Prefix
             backend:
               service:
-                name: file-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # Grading service
           - path: /api/grading
             pathType: Prefix
             backend:
@@ -103,27 +114,24 @@ spec:
                 name: grading-svc
                 port:
                   number: 8000
-          # Admin service
           - path: /api/admin
             pathType: Prefix
             backend:
               service:
-                name: admin-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # Attendance service
           - path: /api/attendance
             pathType: Prefix
             backend:
               service:
-                name: attendance-svc
+                name: lumie-backend
                 port:
                   number: 8080
-          # AI service
           - path: /api/ai
             pathType: Prefix
             backend:
               service:
-                name: ai-svc
+                name: lumie-backend
                 port:
                   number: 8080

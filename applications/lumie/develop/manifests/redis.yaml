@@ -1,0 +1,53 @@
+# Dev-only Redis (standalone, no Sentinel)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-dev
+  namespace: lumie-dev
+  labels:
+    app: redis-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-dev
+  template:
+    metadata:
+      labels:
+        app: redis-dev
+    spec:
+      containers:
+        - name: redis
+          image: zot.lumie-infra.com/bitnamilegacy/redis:8.2.1-debian-12-r0
+          ports:
+            - containerPort: 6379
+              name: redis
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lumie-dev-redis-secrets
+                  key: password
+          command:
+            - redis-server
+            - --requirepass
+            - $(REDIS_PASSWORD)
+          resources:
+            requests:
+              cpu: 20m
+              memory: 64Mi
+            limits:
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-dev
+  namespace: lumie-dev
+spec:
+  selector:
+    app: redis-dev
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: redis

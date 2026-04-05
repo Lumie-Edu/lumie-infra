@@ -31,7 +31,6 @@ common:
     enabled: true
     clusterName: lumie-dev
     instances: 1  # Single instance for dev
-    version: "18.1"
     name: lumie
     owner: lumie
     encoding: UTF8

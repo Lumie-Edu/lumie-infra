@@ -20,7 +20,6 @@ common:
     enabled: true
     clusterName: lumie
     instances: 4
-    version: "18.1"
     name: lumie
     owner: bluemayne
     encoding: UTF8

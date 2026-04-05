@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rabbitmq
+  name: rabbitmq-dev
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,16 +10,10 @@ spec:
   source:
     repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
-    path: platform/rabbitmq/overlays/prod
+    path: platform/rabbitmq/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: lumie-event
-  ignoreDifferences:
-    - group: ""
-      kind: Secret
-      name: rabbitmq-secrets
-      jsonPointers:
-        - /data
+    namespace: lumie-dev
   syncPolicy:
     automated:
       prune: true
@@ -30,9 +24,6 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
-    managedNamespaceMetadata:
-      labels:
-        goldilocks.fairwinds.com/enabled: "true"
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
   revisionHistoryLimit: 10
