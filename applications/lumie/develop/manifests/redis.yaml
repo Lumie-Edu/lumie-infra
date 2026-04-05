@@ -18,20 +18,14 @@ spec:
     spec:
       containers:
         - name: redis
-          image: zot.lumie-infra.com/bitnamilegacy/redis:8.2.1-debian-12-r0
+          image: redis:7-alpine
           ports:
             - containerPort: 6379
               name: redis
-          env:
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: lumie-dev-redis-secrets
-                  key: password
           command:
             - redis-server
-            - --requirepass
-            - $(REDIS_PASSWORD)
+            - --protected-mode
+            - "no"
           resources:
             requests:
               cpu: 20m
