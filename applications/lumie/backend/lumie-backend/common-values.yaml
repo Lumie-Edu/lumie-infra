@@ -167,9 +167,9 @@ common:
 
     # External Python services (exam module)
     - name: GRADING_SVC_URL
-      value: "http://grading-svc.lumie-grading.svc:8000"
+      value: "http://grading-svc.lumie-worker.svc:8000"
     - name: REPORT_SVC_URL
-      value: "http://report-svc.lumie-report.svc:8000"
+      value: "http://report-svc.lumie-worker.svc:8000"
 
     # DeepSeek API (ai module)
     - name: DEEPSEEK_API_KEY

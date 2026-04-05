@@ -3,7 +3,7 @@
 
 common:
   name: grading-svc
-  namespace: lumie-grading
+  namespace: lumie-worker
 
   # Deployment
   deployment:

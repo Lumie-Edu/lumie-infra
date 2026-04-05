@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://github.com/Lumie-Edu/lumie-infra.git
     targetRevision: main
-    path: applications/lumie/ai/report-svc
+    path: applications/lumie/worker/report-svc
   destination:
     server: https://kubernetes.default.svc
-    namespace: lumie-report
+    namespace: lumie-worker
   syncPolicy:
     automated:
       prune: true

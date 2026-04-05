@@ -10,5 +10,5 @@ helmGlobals:
 helmCharts:
   - name: common
     releaseName: grading-svc
-    namespace: lumie-grading
+    namespace: lumie-worker
     valuesFile: common-values.yaml

@@ -3,7 +3,7 @@
 
 common:
   name: report-svc
-  namespace: lumie-report
+  namespace: lumie-worker
 
   # Deployment
   deployment:

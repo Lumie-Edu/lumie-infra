@@ -7,5 +7,5 @@ helmGlobals:
 helmCharts:
   - name: common
     releaseName: analysis-svc
-    namespace: analysis-svc
+    namespace: lumie-worker
     valuesFile: helm-values.yaml

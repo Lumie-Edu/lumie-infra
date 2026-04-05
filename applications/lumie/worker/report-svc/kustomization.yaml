@@ -7,5 +7,5 @@ helmGlobals:
 helmCharts:
   - name: common
     releaseName: report-svc
-    namespace: lumie-report
+    namespace: lumie-worker
     valuesFile: common-values.yaml
